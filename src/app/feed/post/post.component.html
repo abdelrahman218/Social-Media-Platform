@@ -1,20 +1,16 @@
-<div class="header">
-    <div class="imageContainer">
-        <img [src]="imgUrl" alt="">
-    </div>
-    <div class="ownerInfo">
-        <h3>
-            {{post().postOwner.name}}
-        </h3>
-        <p>
-            {{post().datePosted}}
-        </p>
-    </div>
-</div>
-<div class="content">
+<mat-card appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>{{post().postOwner.name}}</mat-card-title>
+      <mat-card-subtitle>{{post().datePosted}}</mat-card-subtitle>
+    </mat-card-header>
     @if(post().text_content.trim()!==""){
-        {{post().text_content}}
-    }
+            <mat-card-content>
+                <p>
+                    {{post().text_content}}
+                </p>
+            </mat-card-content>
+        }
     @if(post().attachedImagesURLs.length!==0){
         <div>
             @for (imageUrl of post().attachedImagesURLs; track $index) {
@@ -22,23 +18,23 @@
             }
         </div>
     }
-</div>
-<div class="interactions">
-    <button mat-fab extended >
-        <span class="material-icons">
-            @if(true){
-                favorite
-            }
-            @else {
-                favorite_border
-            }
-        </span>
-        Like
-    </button>
-    <button>
-        <span class="material-icons">
-            comment
-        </span>
-        Comments
-    </button>
-</div>
+    <mat-card-actions>
+        <button mat-fab extended >
+            <span class="material-icons">
+                @if(true){
+                    favorite
+                }
+                @else {
+                    favorite_border
+                }
+            </span>
+            Like
+        </button>
+        <button mat-fab extended>
+            <span class="material-icons">
+                comment
+            </span>
+            Comment
+        </button>
+    </mat-card-actions>
+  </mat-card>  

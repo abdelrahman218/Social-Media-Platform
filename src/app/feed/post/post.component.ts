@@ -1,11 +1,12 @@
 import { Component, input } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { Post } from '../../app.model';
 
 @Component({
   selector: 'app-post',
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
