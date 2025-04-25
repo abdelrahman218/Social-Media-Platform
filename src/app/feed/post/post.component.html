@@ -1,40 +1,53 @@
-<mat-card appearance="outlined">
+<mat-card class="post" appearance="outlined">
     <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
-      <mat-card-title>{{post().postOwner.name}}</mat-card-title>
-      <mat-card-subtitle>{{post().datePosted}}</mat-card-subtitle>
+      <img [src]="imgUrl" onerror="this.src='default-male-avatar.jpg'" mat-card-avatar/>
+      <mat-card-title class="text"><b>{{post().postOwner.name}}</b></mat-card-title>
+      <mat-card-subtitle class="text">{{post().datePosted | date: 'MMM d, y, h:mm a'}}</mat-card-subtitle>
     </mat-card-header>
     @if(post().text_content.trim()!==""){
             <mat-card-content>
-                <p>
+                <p class="text">
                     {{post().text_content}}
                 </p>
             </mat-card-content>
         }
     @if(post().attachedImagesURLs.length!==0){
-        <div>
+        <div class="postedImageContainer">
             @for (imageUrl of post().attachedImagesURLs; track $index) {
                 <img [src]="imageUrl">
             }
         </div>
     }
     <mat-card-actions>
-        <button mat-fab extended >
+        <button mat-button color="primary" class="text">
             <span class="material-icons">
-                @if(true){
+                @if(isLikedByLoggedInUser()){
                     favorite
                 }
                 @else {
                     favorite_border
                 }
             </span>
-            Like
+            @if(isLikedByLoggedInUser()){
+                Liked
+            }
+            @else {
+                Like
+            }
         </button>
-        <button mat-fab extended>
+        <button mat-button color="primary" class="text">
             <span class="material-icons">
                 comment
             </span>
             Comment
         </button>
+        <div class="postInfo">
+            <div class="likes">
+                {{post().likes.length}} Likes
+            </div>
+            <div class="comments">
+                {{post().comments.length}} Comments
+            </div>
+        </div>
     </mat-card-actions>
   </mat-card>  

@@ -1,0 +1,38 @@
+:host{
+    display: block;
+}
+
+.post{
+    border-radius: 20px;
+}
+
+.postedImageContainer{
+    display: block;
+    width: 100%;
+}
+
+.postedImageContainer img{
+    width: 100%;
+}
+
+.postInfo{
+    display: grid;
+    width: 17%;
+    position: absolute;
+    right: 5px;
+    grid-template-columns: 50% 50%;
+    font-size: 1.2em;
+    text-align: center;
+    color: #3f422ec4;
+}
+.text{
+    font-size: 1.5em;
+}
+
+.material-icons{
+    color: #F5E6C5;
+}
+
+button{
+    border-radius: 25px;
+}

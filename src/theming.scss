@@ -1,0 +1,116 @@
+// src/theme.scss
+
+// Define custom properties in the :root scope
+:root {
+  // Primary palette (#3F422E)
+  --mat-primary: #3F422E;
+  --mat-primary-light: #5e632a;
+  --mat-primary-dark: #272a1a;
+  --mat-primary-contrast: #F5E6C5;
+  --mat-primary-ripple: rgba(63, 66, 46, 0.3);
+
+  // Accent palette (#A08870)
+  --mat-accent: #A08870;
+  --mat-accent-light: #c0a482;
+  --mat-accent-dark: #745736;
+  --mat-accent-contrast: #F5E6C5;
+  --mat-accent-ripple: rgba(160, 136, 112, 0.3);
+  
+  // Warn palette (optional, using #F5E6C5)
+  --mat-warn: #D32F2F;
+  --mat-warn-light: #ef5350;
+  --mat-warn-dark: #b71c1c;
+  --mat-warn-contrast: #F5E6C5;
+  --mat-warn-ripple: rgba(211, 47, 47, 0.3);
+
+  // Background and surface (#F5E6C5)
+  --mat-background: #F5E6C5;
+  --mat-surface: #F5E6C5;
+  --mat-on-surface: #3F422E; // Text/icon on surface
+}
+
+// Apply the theme to the body
+body {
+  background-color: var(--mat-background);
+}
+
+// Ensure color attribute works for buttons
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-outlined-button {
+  &[color="primary"] {
+    background-color: var(--mat-primary);
+    color: var(--mat-primary-contrast);
+    .mdc-button__label {
+      color: var(--mat-primary-contrast);
+    }
+    &:hover {
+      background-color: var(--mat-primary-light);
+    }
+  }
+  &[color="accent"] {
+    background-color: var(--mat-accent);
+    color: var(--mat-accent-contrast);
+    .mdc-button__label {
+      color: var(--mat-accent-contrast);
+    }
+    &:hover {
+      background-color: var(--mat-accent-light);
+    }
+  }
+  &[color="warn"] {
+    background-color: var(--mat-warn);
+    color: var(--mat-warn-contrast);
+    .mdc-button__label {
+      color: var(--mat-warn-contrast);
+    }
+    &:hover {
+      background-color: var(--mat-warn-light);
+    }
+  }
+}
+
+// Ensure color attribute works for toolbars
+.mat-mdc-toolbar {
+  &[color="primary"] {
+    background-color: var(--mat-primary);
+    color: var(--mat-primary-contrast);
+  }
+  &[color="accent"] {
+    background-color: var(--mat-accent);
+    color: var(--mat-accent-contrast);
+  }
+  &[color="warn"] {
+    background-color: var(--mat-warn);
+    color: var(--mat-warn-contrast);
+  }
+}
+
+// Style cards to use surface color
+.mat-mdc-card {
+  background-color: var(--mat-surface);
+  color: var(--mat-on-surface);
+}
+
+// Optional: Style other components (e.g., inputs)
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    &[color="primary"] {
+      .mdc-text-field--filled {
+        background-color: var(--mat-primary-light);
+      }
+      .mat-mdc-input-element {
+        color: var(--mat-primary-contrast);
+      }
+    }
+    &[color="accent"] {
+      .mdc-text-field--filled {
+        background-color: var(--mat-accent-light);
+      }
+      .mat-mdc-input-element {
+        color: var(--mat-accent-contrast);
+      }
+    }
+  }
+}

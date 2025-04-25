@@ -1,9 +1,11 @@
 @use '../../color-pallete.scss' as CP;
 
 :host{
-    display: block;
-    background-color: CP.$Ternary-color;
-    width: 100vw;
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 10px;
+    padding: 10px 1vw;
+    width: 98vw;
     min-height: 100vh;
     max-height: 150vh;
     overflow-y: scroll;

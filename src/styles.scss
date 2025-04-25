@@ -1,13 +1,2 @@
-@use '@angular/material' as mat;
-@use './color-pallete.scss' as CP;
-html{
-  @include mat.theme((
-    color: (
-      theme-type: light
-    ),
-    density: 0,
-  ));
-}
-
 html, body { height: 100%; }
 body { margin: 0; }
