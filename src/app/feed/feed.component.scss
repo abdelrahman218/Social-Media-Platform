@@ -1,0 +1,10 @@
+@use '../../color-pallete.scss' as CP;
+
+:host{
+    display: block;
+    background-color: CP.$Ternary-color;
+    width: 100vw;
+    min-height: 100vh;
+    max-height: 150vh;
+    overflow-y: scroll;
+}

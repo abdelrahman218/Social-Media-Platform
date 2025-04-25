@@ -1,0 +1,44 @@
+<div class="header">
+    <div class="imageContainer">
+        <img [src]="imgUrl" alt="">
+    </div>
+    <div class="ownerInfo">
+        <h3>
+            {{post().postOwner.name}}
+        </h3>
+        <p>
+            {{post().datePosted}}
+        </p>
+    </div>
+</div>
+<div class="content">
+    @if(post().text_content.trim()!==""){
+        {{post().text_content}}
+    }
+    @if(post().attachedImagesURLs.length!==0){
+        <div>
+            @for (imageUrl of post().attachedImagesURLs; track $index) {
+                <img [src]="imageUrl">
+            }
+        </div>
+    }
+</div>
+<div class="interactions">
+    <button mat-fab extended >
+        <span class="material-icons">
+            @if(true){
+                favorite
+            }
+            @else {
+                favorite_border
+            }
+        </span>
+        Like
+    </button>
+    <button>
+        <span class="material-icons">
+            comment
+        </span>
+        Comments
+    </button>
+</div>
