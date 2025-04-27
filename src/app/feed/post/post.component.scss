@@ -1,9 +1,11 @@
+@use '../../../color-pallete.scss' as CP;
 :host{
     display: block;
 }
 
 .post{
     border-radius: 20px;
+    box-shadow: CP.$Secondary-color 0px 0px 5px;
 }
 
 .postedImageContainer{
@@ -27,6 +29,10 @@
 }
 .text{
     font-size: 1.5em;
+}
+
+p.text{
+    padding: 3px 0px;
 }
 
 .material-icons{

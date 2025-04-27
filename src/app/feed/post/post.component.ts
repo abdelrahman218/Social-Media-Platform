@@ -19,7 +19,4 @@ export class PostComponent {
     return this.post().postOwner.profilePicURL;
   }
 
-  get altImg(){
-    return (this.post().postOwner.gender==='Male')? 'default-male-avatar' : 'default-female-avatar';
-  }
 }
