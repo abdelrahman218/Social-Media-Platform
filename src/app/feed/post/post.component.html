@@ -19,7 +19,7 @@
         </div>
     }
     <mat-card-actions>
-        <button mat-button color="primary" class="text">
+        <button mat-button color="primary" (click)="likePost()" class="text">
             <span class="material-icons">
                 @if(isLikedByLoggedInUser()){
                     favorite

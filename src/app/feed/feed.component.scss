@@ -1,6 +1,6 @@
 @use '../../color-pallete.scss' as CP;
 
-:host{
+.posts{
     display: grid;
     grid-template-columns: 100%;
     row-gap: 10px;

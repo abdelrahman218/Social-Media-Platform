@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Post } from '../app.model';
 import { dummyPosts } from './dummy-posts';
 import { PostComponent } from "./post/post.component";
+import { PostsService } from './posts.service';
 
 @Component({
   selector: 'app-feed',
@@ -10,5 +11,6 @@ import { PostComponent } from "./post/post.component";
   styleUrl: './feed.component.scss'
 })
 export class FeedComponent {
-  posts=signal<Post[]>(dummyPosts);
+  private postsService=inject(PostsService);
+  posts=this.postsService.userFeedPosts;
 }
