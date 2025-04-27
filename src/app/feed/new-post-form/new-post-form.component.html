@@ -1,0 +1,36 @@
+<form
+  [formGroup]="newPostFormGroup"
+  (ngSubmit)="addPost()"
+  action=""
+  method="post"
+>
+  <h2 mat-dialog-title>New Post</h2>
+  <mat-dialog-content>
+    <p>Post Content</p>
+    <mat-form-field>
+      <mat-label>Add Your Thoughts</mat-label>
+      <input formControlName="postTextContent" matInput />
+    </mat-form-field>
+    <div class="upload-button-field">
+      <label for="post-pics" class="upload-button">+ Upload Pictures</label>
+      <input
+        type="file"
+        #fileUploadElement
+        (change)="onImagePicked(fileUploadElement)"
+        style="display: none"
+        name="post-pics"
+        id="post-pics"
+        accept="image/jpeg, image/png"
+        multiple
+      />
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button type="button" color="warn" mat-stroked-button (click)="onCancel()">
+      Cancel
+    </button>
+    <button type="submit" color="primary" mat-button cdkFocusInitial>
+      Post
+    </button>
+  </mat-dialog-actions>
+</form>

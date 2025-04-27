@@ -1,5 +1,9 @@
-<div class="posts">
-    @for (post of posts(); track post.id) {
-        <app-post [post]="post"/>
-    }
+<div>
+  <button mat-button (click)="openNewPostDialog()" color="primary" class="text">
+    <span class="material-icons"> add </span>
+    <p>New Post</p>
+  </button>
 </div>
+@for (post of posts(); track post.id) {
+<app-post [post]="post" />
+}

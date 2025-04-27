@@ -31,12 +31,16 @@
     font-size: 1.5em;
 }
 
+.text p{
+    padding-left: 3px;
+}
+
 p.text{
     padding: 3px 0px;
 }
 
 .material-icons{
-    color: #F5E6C5;
+    color: CP.$Ternary-color;
 }
 
 button{

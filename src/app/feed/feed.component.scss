@@ -1,6 +1,6 @@
 @use '../../color-pallete.scss' as CP;
 
-.posts{
+:host{
     display: grid;
     grid-template-columns: 100%;
     row-gap: 10px;
@@ -9,4 +9,26 @@
     min-height: 100vh;
     max-height: 150vh;
     overflow-y: scroll;
+}
+
+div{
+    display: flex;
+    align-items: flex-end;
+}
+
+div button{
+    margin-left: auto;
+    border-radius: 5px;
+}
+
+.text{
+    font-size: 1.5em;
+}
+
+.text p{
+    padding-left: 3px;
+}
+
+.material-icons{
+    color: CP.$Ternary-color;
 }

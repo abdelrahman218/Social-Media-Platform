@@ -28,18 +28,22 @@
                     favorite_border
                 }
             </span>
-            @if(isLikedByLoggedInUser()){
-                Liked
-            }
-            @else {
-                Like
-            }
+            <p>
+                @if(isLikedByLoggedInUser()){
+                    Liked
+                }
+                @else {
+                    Like
+                }
+            </p>
         </button>
         <button mat-button color="primary" class="text">
             <span class="material-icons">
                 comment
             </span>
-            Comment
+            <p>
+                Comment
+            </p>
         </button>
         <div class="postInfo">
             <div class="likes">

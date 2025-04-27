@@ -1,0 +1,16 @@
+@use '../../../color-pallete.scss' as CP;
+.upload-button{
+    background: CP.$Primary-color;
+    color: CP.$Ternary-color;
+    width: 30%;
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover{
+        background-color: var(--mat-primary-light);
+    }
+}
+
+button{
+    border-radius: 20px;
+}

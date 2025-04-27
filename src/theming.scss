@@ -3,30 +3,30 @@
 // Define custom properties in the :root scope
 :root {
   // Primary palette (#3F422E)
-  --mat-primary: #3F422E;
+  --mat-primary: #3f422e;
   --mat-primary-light: #5e632a;
   --mat-primary-dark: #272a1a;
-  --mat-primary-contrast: #F5E6C5;
+  --mat-primary-contrast: #f5e6c5;
   --mat-primary-ripple: rgba(63, 66, 46, 0.3);
 
   // Accent palette (#A08870)
-  --mat-accent: #A08870;
+  --mat-accent: #a08870;
   --mat-accent-light: #c0a482;
   --mat-accent-dark: #745736;
-  --mat-accent-contrast: #F5E6C5;
+  --mat-accent-contrast: #f5e6c5;
   --mat-accent-ripple: rgba(160, 136, 112, 0.3);
-  
+
   // Warn palette (optional, using #F5E6C5)
-  --mat-warn: #D32F2F;
+  --mat-warn: #d32f2f;
   --mat-warn-light: #ef5350;
   --mat-warn-dark: #b71c1c;
-  --mat-warn-contrast: #F5E6C5;
+  --mat-warn-contrast: #f5e6c5;
   --mat-warn-ripple: rgba(211, 47, 47, 0.3);
 
   // Background and surface (#F5E6C5)
-  --mat-background: #F5E6C5;
-  --mat-surface: #F5E6C5;
-  --mat-on-surface: #3F422E; // Text/icon on surface
+  --mat-background: #f5e6c5;
+  --mat-surface: #f5e6c5;
+  --mat-on-surface: #3f422e; // Text/icon on surface
 }
 
 // Apply the theme to the body
@@ -37,8 +37,7 @@ body {
 // Ensure color attribute works for buttons
 .mat-mdc-button,
 .mat-mdc-raised-button,
-.mat-mdc-unelevated-button,
-.mat-mdc-outlined-button {
+.mat-mdc-unelevated-button {
   &[color="primary"] {
     background-color: var(--mat-primary);
     color: var(--mat-primary-contrast);
@@ -67,6 +66,51 @@ body {
     }
     &:hover {
       background-color: var(--mat-warn-light);
+    }
+  }
+}
+
+.mat-mdc-outlined-button {
+  &[color="primary"] {
+    background-color: var(--mat-primary-contrast);
+    color: var(--mat-primary);
+    border-color: var(--mat-primary);
+    .mdc-button__label {
+      color: var(--mat-primary);
+    }
+    &:hover {
+      background-color: var(--mat-primary-light);
+      .mdc-button__label {
+        color: var(--mat-primary-contrast);
+      }
+    }
+  }
+  &[color="accent"] {
+    background-color: var(--mat-accent-contrast);
+    color: var(--mat-accent);
+    border-color: var(--mat-accent);
+    .mdc-button__label {
+      color: var(--mat-accent);
+    }
+    &:hover {
+      background-color: var(--mat-accent-light);
+      .mdc-button__label {
+        color: var(--mat-accent-contrast);
+      }
+    }
+  }
+  &[color="warn"] {
+    background-color: var(--mat-warn-contrast);
+    color: var(--mat-warn);
+    border-color: var(--mat-warn);
+    .mdc-button__label {
+      color: var(--mat-warn);
+    }
+    &:hover {
+      background-color: var(--mat-warn-light);
+      .mdc-button__label {
+        color: var(--mat-warn-contrast);
+      }
     }
   }
 }
