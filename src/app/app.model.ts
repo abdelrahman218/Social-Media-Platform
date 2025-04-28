@@ -2,7 +2,7 @@ export type Gender='Male' | 'Female';
 
 export type User={name: string, email: string, bio: string, profilePicURL: string, gender: Gender};
 
-export type Comment={};
+export type Comment={id: number, text: string, user: User, dateCreated: Date};
 
 export type Like={userId: number, time: Date};
 

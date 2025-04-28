@@ -37,7 +37,7 @@
                 }
             </p>
         </button>
-        <button mat-button color="primary" class="text">
+        <button mat-button color="primary" (click)="toggleCommentsSection()" class="text">
             <span class="material-icons">
                 comment
             </span>
@@ -54,4 +54,7 @@
             </div>
         </div>
     </mat-card-actions>
-  </mat-card>  
+</mat-card>
+@if(isCommentsOpen()){
+    <app-comments-section [post]="post()"/>
+}

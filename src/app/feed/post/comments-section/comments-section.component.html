@@ -1,0 +1,17 @@
+<mat-form-field>
+    <mat-label class="text">Add Your Comment</mat-label>
+    <input matInput [(ngModel)]="newComment" (keypress)="addCommentKeyboard($event)"/>
+    <button matSuffix mat-icon-button (click)="addCommentMouse()">
+        <mat-icon>send</mat-icon>
+    </button>
+</mat-form-field>
+<div>
+    @for (comment of post().comments; track $index) {
+        <app-comment [comment]="comment" />
+    }
+    @empty {
+        <p class="text">
+            Be the first one to comment on this post
+        </p>
+    }
+</div>

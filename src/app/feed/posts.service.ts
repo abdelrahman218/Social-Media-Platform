@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Post } from '../app.model';
+import { Comment, Post } from '../app.model';
 import { dummyPosts } from './dummy-posts';
 
 @Injectable({
@@ -32,10 +32,22 @@ export class PostsService {
   }
 
   addPost(newPost: Post){
-    console.log(newPost);
     if(newPost.text_content!=="" || newPost.attachedImagesURLs.length!==0){
       this.userPostsSignal.update((oldPosts)=>[...oldPosts,newPost]);
-      console.log(this.userPosts());
     }
+  }
+
+  addComment(postId: number, comment: Comment){
+    if(comment.text===''){
+      return
+    }
+    this.userFeedPostsSignal.set(this.userFeedPosts().map((post)=>{
+      if(post.id!==postId){
+        return post;
+      }
+
+      const oldComments=post.comments;
+      return {...post, comments: [...oldComments, comment]};
+    }));
   }
 }

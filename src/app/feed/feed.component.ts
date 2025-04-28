@@ -16,10 +16,6 @@ export class FeedComponent {
   private postsService = inject(PostsService);
   private dialog = inject(MatDialog);
   posts = this.postsService.userFeedPosts;
-
-  ngOnInit(){
-    this.openNewPostDialog();
-  }
   
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);

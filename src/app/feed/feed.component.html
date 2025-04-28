@@ -7,3 +7,8 @@
 @for (post of posts(); track post.id) {
 <app-post [post]="post" />
 }
+@empty {
+  <p class="noFriendsMessage text">
+    Add Some Friends to be able to see thier posts
+  </p>
+}

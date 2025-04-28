@@ -1,34 +1,41 @@
-@use '../../color-pallete.scss' as CP;
+@use "../../color-pallete.scss" as CP;
 
-:host{
-    display: grid;
-    grid-template-columns: 100%;
-    row-gap: 10px;
-    padding: 10px 1vw;
-    width: 98vw;
-    min-height: 100vh;
-    max-height: 150vh;
-    overflow-y: scroll;
+:host {
+  display: grid;
+  grid-template-columns: 100%;
+  row-gap: 10px;
+  padding: 10px 1vw;
+  width: 98vw;
+  min-height: 10vh;
+  max-height: 150vh;
+  overflow-y: scroll;
 }
 
-div{
-    display: flex;
-    align-items: flex-end;
+div {
+  display: flex;
+  align-items: flex-end;
+  max-height: 8vh;
 }
 
-div button{
-    margin-left: auto;
-    border-radius: 5px;
+div button {
+  margin-left: auto;
+  border-radius: 5px;
 }
 
-.text{
-    font-size: 1.5em;
+.text {
+  font-size: 1.5em;
 }
 
-.text p{
-    padding-left: 3px;
+.text p {
+  padding-left: 3px;
 }
 
-.material-icons{
-    color: CP.$Ternary-color;
+.material-icons {
+  color: CP.$Ternary-color;
+}
+
+.noFriendsMessage {
+  display: block;
+  text-align: center;
+  color: var(--mat-primary);
 }
