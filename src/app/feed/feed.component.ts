@@ -9,6 +9,9 @@ import { NewPostFormComponent } from './new-post-form/new-post-form.component';
 @Component({
   selector: 'app-feed',
   imports: [PostComponent, MatIconModule, MatButtonModule],
+  host: {
+    '(scroll)': 'this.onScroll($event)',
+  },
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss',
 })
@@ -20,4 +23,19 @@ export class FeedComponent {
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);
   }
+
+  private atBottom(event: any) {
+    const limit = event.target.scrollHeight - event.target.clientHeight;
+
+    return event.target.scrollTop === limit;
+  }
+
+  onScroll(event: any) {
+    if(!this.atBottom(event)) {
+      return;
+    }
+
+    this.postsService.loadNextPosts();
+  }
+
 }

@@ -4,7 +4,7 @@
     <p>New Post</p>
   </button>
 </div>
-@for (post of posts(); track post.id) {
+@for (post of posts(); track $index) {
 <app-post [post]="post" />
 }
 @empty {

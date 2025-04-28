@@ -23,7 +23,12 @@ export class PostComponent {
   }
   
   likePost(){
-    this.postsService.likeOrUnlikePost(this.post().id);
+    if(this.isLikedByLoggedInUser()){
+      this.postsService.unlikePost(this.post().id);
+    }
+    else{
+      this.postsService.likePost(this.post().id);
+    }
   }
 
   toggleCommentsSection(){

@@ -11,26 +11,33 @@ export class PostsService {
   userFeedPosts = this.userFeedPostsSignal.asReadonly();
   userPosts=this.userPostsSignal.asReadonly();
 
-  likeOrUnlikePost(postId: number) {
+  likePost(postId: number) {
     const updatedUserFeedPosts = this.userFeedPostsSignal().flatMap((post) => {
       const loggedInUserId : number = 102;
       if (post.id !== postId) {
         return post;
       }
 
-      const lengthBefore = post.likes.length;
-
-      post.likes=post.likes.filter((post) => post.userId !== loggedInUserId);
-
-      if (lengthBefore === post.likes.length) {
-        post.likes.push({ userId: loggedInUserId, time: new Date() });
-      }
+      post.likes.push({ userId: loggedInUserId, time: new Date() });
 
       return { ...post };
     });
     this.userFeedPostsSignal.set(updatedUserFeedPosts);
   }
 
+  unlikePost(postId: number){
+    const updatedUserFeedPosts = this.userFeedPostsSignal().flatMap((post) => {
+      const loggedInUserId : number = 102;
+      if (post.id !== postId) {
+        return post;
+      }
+
+      post.likes=post.likes.filter((post) => post.userId !== loggedInUserId);
+
+      return { ...post };
+    });
+    this.userFeedPostsSignal.set(updatedUserFeedPosts);
+  }
   addPost(newPost: Post){
     if(newPost.text_content!=="" || newPost.attachedImagesURLs.length!==0){
       this.userPostsSignal.update((oldPosts)=>[...oldPosts,newPost]);
@@ -49,5 +56,9 @@ export class PostsService {
       const oldComments=post.comments;
       return {...post, comments: [...oldComments, comment]};
     }));
+  }
+
+  loadNextPosts(){
+    this.userFeedPostsSignal.update((oldPosts)=>{return oldPosts.concat(dummyPosts)});
   }
 }
