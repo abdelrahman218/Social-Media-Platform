@@ -4,14 +4,13 @@
   action=""
   method="post"
 >
-  <h2 mat-dialog-title>New Post</h2>
-  <mat-dialog-content>
-    <p>Post Content</p>
+  <h2 mat-dialog-title color="primary" class="text">New Post</h2>
+  <mat-dialog-content class="content">
     <mat-form-field>
-      <mat-label>Add Your Thoughts</mat-label>
+      <mat-label class="text">Add Your Thoughts</mat-label>
       <input formControlName="postTextContent" matInput />
     </mat-form-field>
-    <div class="upload-button-field">
+    <div class="upload-button-field text">
       <label for="post-pics" class="upload-button">+ Upload Pictures</label>
       <input
         type="file"
@@ -26,10 +25,10 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button type="button" color="warn" mat-stroked-button (click)="onCancel()">
+    <button type="button" class="text" color="warn" mat-stroked-button (click)="onCancel()">
       Cancel
     </button>
-    <button type="submit" color="primary" mat-button cdkFocusInitial>
+    <button type="submit" class="text" color="primary" mat-button cdkFocusInitial>
       Post
     </button>
   </mat-dialog-actions>

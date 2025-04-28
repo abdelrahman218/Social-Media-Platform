@@ -7,7 +7,9 @@ import { dummyPosts } from './dummy-posts';
 })
 export class PostsService {
   private userFeedPostsSignal = signal<Post[]>(dummyPosts);
+  private userPostsSignal=signal<Post[]>([]);
   userFeedPosts = this.userFeedPostsSignal.asReadonly();
+  userPosts=this.userPostsSignal.asReadonly();
 
   likeOrUnlikePost(postId: number) {
     const updatedUserFeedPosts = this.userFeedPostsSignal().flatMap((post) => {
@@ -27,5 +29,13 @@ export class PostsService {
       return { ...post };
     });
     this.userFeedPostsSignal.set(updatedUserFeedPosts);
+  }
+
+  addPost(newPost: Post){
+    console.log(newPost);
+    if(newPost.text_content!=="" || newPost.attachedImagesURLs.length!==0){
+      this.userPostsSignal.update((oldPosts)=>[...oldPosts,newPost]);
+      console.log(this.userPosts());
+    }
   }
 }

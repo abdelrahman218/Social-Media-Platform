@@ -1,4 +1,13 @@
 @use '../../../color-pallete.scss' as CP;
+form{
+    background-color: CP.$Ternary-color;
+    width: 35vw;
+}
+
+button{
+    border-radius: 20px;
+}
+
 .upload-button{
     background: CP.$Primary-color;
     color: CP.$Ternary-color;
@@ -11,6 +20,11 @@
     }
 }
 
-button{
-    border-radius: 20px;
+.text{
+    font-size: 1.5em;
+}
+
+.content{
+    height: fit-content;
+    overflow: visible;
 }

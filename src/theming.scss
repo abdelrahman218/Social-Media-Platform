@@ -139,13 +139,15 @@ body {
 
 // Optional: Style other components (e.g., inputs)
 .mat-mdc-form-field {
+  width: 100%;
   .mat-mdc-text-field-wrapper {
     &[color="primary"] {
       .mdc-text-field--filled {
-        background-color: var(--mat-primary-light);
+        background-color: var(--mat-primary);
       }
       .mat-mdc-input-element {
-        color: var(--mat-primary-contrast);
+        color: var(--mat-primary);
+        font-size: 1.5em;
       }
     }
     &[color="accent"] {
@@ -156,5 +158,13 @@ body {
         color: var(--mat-accent-contrast);
       }
     }
+  }
+}
+.mat-mdc-dialog-container{
+  .mat-mdc-dialog-title{
+    &[color="primary"]
+  {
+    color: var(--mat-primary);
+  }
   }
 }
