@@ -15,7 +15,7 @@ export const dummyPosts: Post[] = [
       text_content: "Just finished a great hike! 🏞️",
       postOwner: { name: "Emma Smith", email: "emma.smith@example.com", bio: "Nature lover", profilePicURL: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg", gender: "Female" },
       datePosted: new Date("2024-07-01"),
-      attachedImagesURLs: ["https://images.unsplash.com/photo-1507525428034-b723cf961d3e"],
+      attachedImagesURLs: ["https://images.unsplash.com/photo-1507525428034-b723cf961d3e","https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c","https://images.unsplash.com/photo-1503803548695-c2a7b4a5b875"],
       likes: [],
       comments: []
     },

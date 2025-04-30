@@ -1,50 +1,53 @@
-@use '../../../color-pallete.scss' as CP;
-:host{
-    display: block;
+@use "../../../color-pallete.scss" as CP;
+@use "@coreui/coreui/scss/coreui";
+
+:host {
+  display: block;
 }
 
-.post{
-    display: block;
-    border-radius: 20px;
-    box-shadow: CP.$Secondary-color 0px 0px 5px;
-    z-index: 20;
+.post {
+  display: block;
+  border-radius: 20px;
+  box-shadow: CP.$Secondary-color 0px 0px 5px;
+  z-index: 20;
 }
 
-.postedImageContainer{
-    display: block;
-    width: 100%;
+.postedImageContainer {
+  display: block;
+  width: 100%;
 }
 
-.postedImageContainer img{
-    width: 100%;
+.postedImageContainer img {
+  width: 100%;
 }
 
-.postInfo{
-    display: grid;
-    width: 17%;
-    position: absolute;
-    right: 5px;
-    grid-template-columns: 50% 50%;
-    font-size: 1.2em;
-    text-align: center;
-    color: #3f422ec4;
+.postInfo {
+  display: grid;
+  width: 17%;
+  position: absolute;
+  right: 5px;
+  grid-template-columns: 50% 50%;
+  font-size: 1.2em;
+  text-align: center;
+  color: #3f422ec4;
 }
-.text{
-    font-size: 1.5em;
-}
-
-.text p{
-    padding-left: 3px;
+.text {
+  font-size: 1.5em;
 }
 
-p.text{
-    padding: 3px 0px;
+.text p {
+  padding-left: 3px;
+  margin-bottom: 0px;
 }
 
-.material-icons{
-    color: CP.$Ternary-color;
+p.text {
+  padding: 3px 0px;
 }
 
-button{
-    border-radius: 25px;
+.material-icons {
+  color: CP.$Ternary-color;
+}
+
+button {
+  border-radius: 25px;
 }
