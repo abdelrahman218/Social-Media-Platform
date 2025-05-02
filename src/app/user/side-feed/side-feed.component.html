@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<div class="layout">
+    <!-- Left Sidebar -->
+    <div class="sidebar left-sidebar">
+      <!-- Profile Section -->
+      <div class="profile-section">
+        <img [src]="currentUser().profilePicURL" alt="Profile Picture" class="profile-pic"><label>{{currentUser().name}}</label>
+      </div>
+  
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="/messages"><i class="fas fa-envelope"></i> Messages</a></li>
+          <li><a href="/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+          <li><a href="/settings"><i class="fas fa-cog"></i> Settings</a></li>
+          <li><a href="/friends"><i class="fas fa-users"></i> Friends</a></li>
+          <li><a href="/groups"><i class="fas fa-file-alt"></i> Liked Posts</a></li>
+          <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  
+
+    <!-- Right Sidebar -->
+    <div class="sidebar right-sidebar">
+      <!-- Trending Topics -->
+      <div class="trending">
+        <h4>Trending Topics</h4>
+        <div class="trend-item">
+          <span class="topic">#TrendingTopic1</span>
+          <span class="count">1.2K posts</span>
+        </div>
+        <div class="trend-item">
+          <span class="topic">#TrendingTopic2</span>
+          <span class="count">856 posts</span>
+        </div>
+      </div>
+  
+      <!-- Suggestions (You can generate dynamically later) -->
+      <div class="suggestions">
+        <h4>Suggestions</h4>
+        <ul>
+          <li><a href="#">Follow User123</a></li>
+          <li><a href="#">Check out #Football</a></li>
+          <li><a href="#">Join Community XYZ</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

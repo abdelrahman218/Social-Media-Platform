@@ -5,10 +5,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostComponent } from './post/post.component';
 import { PostsService } from './posts.service';
 import { NewPostFormComponent } from './new-post-form/new-post-form.component';
+import { SideFeedComponent } from '../user/side-feed/side-feed.component';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-feed',
-  imports: [PostComponent, MatIconModule, MatButtonModule],
+  imports: [PostComponent, MatIconModule, MatButtonModule,SideFeedComponent],
   host: {
     '(scroll)': 'this.onScroll($event)',
   },
@@ -18,6 +20,8 @@ import { NewPostFormComponent } from './new-post-form/new-post-form.component';
 export class FeedComponent {
   private postsService = inject(PostsService);
   private dialog = inject(MatDialog);
+  private userService = inject(UserService);
+  user = this.userService.getCurrentUser();
   posts = this.postsService.userFeedPosts;
   
   openNewPostDialog() {
