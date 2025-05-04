@@ -7,7 +7,8 @@
     <div class="nav-buttons">
       <button mat-button (click)="scrollToFeatures()">Features</button>
       <button mat-button (click)="scrollToAbout()">About</button>
-      <button mat-raised-button (click)="navigateToSignUp()">Sign Up</button>
+      <button mat-raised-button routerLink="/auth/login">Sign In</button>
+      <button mat-raised-button routerLink="/auth/signup">Sign Up</button>
     </div>
   </div>
 </mat-toolbar>
@@ -26,7 +27,7 @@
         <h1 class="mat-display-3">Connect Beyond Boundaries</h1>
         <p class="mat-headline-5">Join a vibrant community where ideas flow freely and connections flourish</p>
         <div class="cta-buttons">
-          <button mat-raised-button class="get-started-btn" (click)="navigateToSignUp()">
+          <button mat-raised-button class="get-started-btn" routerLink="/auth/signup">
             Get Started
             <mat-icon>arrow_forward</mat-icon>
           </button>
@@ -158,7 +159,7 @@
     <div class="cta-content">
       <h2 class="mat-display-2">Ready to Join?</h2>
       <p class="mat-headline-5">Be part of our growing community today</p>
-      <button mat-raised-button class="signup-btn" (click)="navigateToSignUp()">
+      <button mat-raised-button class="signup-btn" routerLink="/auth/signup">
         Create Your Account
         <mat-icon>person_add</mat-icon>
       </button>
@@ -202,9 +203,9 @@
       <div class="footer-section">
         <h4 class="mat-subtitle-1">Quick Links</h4>
         <mat-nav-list>
-          <a mat-list-item (click)="scrollToFeatures()" class="footer-link">Features</a>
-          <a mat-list-item (click)="scrollToAbout()" class="footer-link">About</a>
-          <a mat-list-item (click)="navigateToSignUp()" class="footer-link">Sign Up</a>
+          <a mat-list-item (click)="scrollToFeatures()">Features</a>
+          <a mat-list-item (click)="scrollToAbout()" >About</a>
+          <a mat-list-item routerLink="/auth/signup" >Sign Up</a>
         </mat-nav-list>
       </div>
       <div class="footer-section">

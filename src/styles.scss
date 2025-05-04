@@ -1,14 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @use "./color-pallete.scss" as CP;
 
-html {
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+html {
   scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   min-height: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: CP.$Ternary-color;
@@ -16,7 +20,6 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: auto;
 }
 
 * {

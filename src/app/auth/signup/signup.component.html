@@ -1,1 +1,84 @@
-<p>signup works!</p>
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="signup-header">
+      <h1>Create Account</h1>
+      <p>Join our community and start sharing</p>
+    </div>
+    
+    <form class="signup-form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Full Name</mat-label>
+        <input 
+          matInput
+          type="text" 
+          name="fullName"
+          required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input 
+          matInput
+          type="email" 
+          name="email"
+          required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Birth</mat-label>
+        <input 
+          matInput
+          [matDatepicker]="picker"
+          name="dateOfBirth"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="gender-selection">
+        <label>Gender</label>
+        <mat-radio-group formControlName="gender" class="gender-radio-group">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Password</mat-label>
+        <input 
+          matInput
+          type="password" 
+          name="password"
+          required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Confirm Password</mat-label>
+        <input 
+          matInput
+          type="password" 
+          name="confirmPassword"
+          required>
+      </mat-form-field>
+      
+      <button type="submit" class="signup-button">
+        Sign Up
+      </button>
+      
+      <mat-divider class="divider">
+        <span class="divider-text">or</span>
+      </mat-divider>
+      
+      <div class="social-signup">
+        <a class="social-button google" href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&client_id=246329650437-v9qbhke6kioj32beqnmskrukk2c7g68p.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A4200%2Fauth%2Fgoogle%2Fcallback&state=abc123&prompt=select_account">
+          <i class="fa-brands fa-google"></i>
+        Continue with Google
+    </a>
+      </div>
+    </form>
+    
+    <div class="signup-footer">
+      <p>Already have an account? <a href="/auth/login">Log In</a></p>
+    </div>
+  </div>
+</div>

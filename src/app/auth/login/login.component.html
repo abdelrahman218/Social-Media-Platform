@@ -1,1 +1,50 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Connect with friends and the world around you</p>
+    </div>
+    
+    <form class="login-form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input 
+          type="email" 
+          placeholder="Email" 
+          class="form-control"
+          [(ngModel)]="email"
+          name="email"
+          required>
+      </div>
+      
+      <div class="form-group">
+        <input 
+          type="password" 
+          placeholder="Password" 
+          class="form-control"
+          [(ngModel)]="password"
+          name="password"
+          required>
+      </div>
+      
+      <div class="form-group">
+        <button type="submit" class="login-button">Log In</button>
+      </div>
+      
+      <div class="divider">
+        <span>or</span>
+      </div>
+      
+      <div class="social-login">
+        <a class="social-button google" href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&client_id=246329650437-v9qbhke6kioj32beqnmskrukk2c7g68p.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A4200%2Fauth%2Fgoogle%2Fcallback&state=abc123&prompt=select_account">
+            <i class="fa-brands fa-google"></i>
+          Continue with Google
+      </a>
+
+      </div>
+    </form>
+    
+    <div class="login-footer">
+      <p>Don't have an account? <a href="/auth/signup">Sign Up</a></p>
+    </div>
+  </div>
+</div>

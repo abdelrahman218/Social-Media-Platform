@@ -23,10 +23,6 @@ import { MatListModule } from '@angular/material/list';
 export class LandingPageComponent {
   constructor(private router: Router) {}
 
-  navigateToSignUp(): void {
-    this.router.navigate(['/signup']);
-  }
-
   scrollToFeatures(): void {
     const featuresSection = document.getElementById('features');
     if (featuresSection) {

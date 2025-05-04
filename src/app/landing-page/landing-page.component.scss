@@ -34,7 +34,7 @@
     color: CP.$Primary-color;
     font-size: 1.5rem;
     font-weight: 500;
-
+    margin-right: 250px;
     mat-icon {
       font-size: 2rem;
       width: 2rem;
@@ -631,7 +631,11 @@
     gap: 4rem;
     margin-bottom: 3rem;
   }
-  
+  @include mat.list-overrides((
+    active-indicator-color: CP.$Secondary-color,
+    list-item-container-color: CP.$Primary-color,
+    list-item-label-text-color: CP.$Ternary-color
+  ));
   .footer-section {
     .footer-logo {
       display: flex;
