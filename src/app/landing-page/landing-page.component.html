@@ -1,1 +1,223 @@
-<p>landing-page works!</p>
+<mat-toolbar class="navbar">
+  <div class="navbar-content">
+    <div class="logo">
+      <mat-icon>forum</mat-icon>
+      <span>SocialConnect</span>
+    </div>
+    <div class="nav-buttons">
+      <button mat-button (click)="scrollToFeatures()">Features</button>
+      <button mat-button (click)="scrollToAbout()">About</button>
+      <button mat-raised-button (click)="navigateToSignUp()">Sign Up</button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<div class="landing-page">
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="gradient-sphere"></div>
+      <div class="gradient-sphere"></div>
+      <div class="gradient-sphere"></div>
+      <div class="noise-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">Welcome to the Future of Social Networking</div>
+        <h1 class="mat-display-3">Connect Beyond Boundaries</h1>
+        <p class="mat-headline-5">Join a vibrant community where ideas flow freely and connections flourish</p>
+        <div class="cta-buttons">
+          <button mat-raised-button class="get-started-btn" (click)="navigateToSignUp()">
+            Get Started
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          <button mat-stroked-button class="learn-more-btn" (click)="scrollToFeatures()">
+            Learn More
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">10M+</span>
+            <span class="stat-label">Users</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">150+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Support</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="image-wrapper">
+          <img src="global connection.jpg" alt="Global Connections">
+          <div class="image-decoration"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features-section">
+    <div class="section-header">
+      <span class="section-tag">Features</span>
+      <h2 class="mat-display-2">Why Choose Us</h2>
+      <p class="mat-subtitle-1">Discover what makes our platform unique</p>
+    </div>
+    <div class="features-grid">
+      <mat-card class="feature-card">
+        <div class="feature-icon">
+          <mat-icon>public</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="mat-headline-5">Global Networking</h3>
+          <p class="mat-body-1">Connect with diverse individuals from around the world and expand your horizons</p>
+          <a class="feature-link">Learn more <mat-icon>arrow_forward</mat-icon></a>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="feature-card">
+        <div class="feature-icon">
+          <mat-icon>share</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="mat-headline-5">Seamless Sharing</h3>
+          <p class="mat-body-1">Share your moments, thoughts, and experiences with an engaged community</p>
+          <a class="feature-link">Learn more <mat-icon>arrow_forward</mat-icon></a>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="feature-card">
+        <div class="feature-icon">
+          <mat-icon>explore</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="mat-headline-5">Endless Discovery</h3>
+          <p class="mat-body-1">Discover new content, communities, and connections tailored to your interests</p>
+          <a class="feature-link">Learn more <mat-icon>arrow_forward</mat-icon></a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="about-content">
+      <div class="about-text">
+        <span class="section-tag">About</span>
+        <h2 class="mat-display-2">About Our Platform</h2>
+        <p class="mat-body-1">We're building more than just a social network - we're creating a space where meaningful connections happen. Our platform combines cutting-edge technology with human-centered design to deliver an experience that's both powerful and personal.</p>
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <mat-icon>security</mat-icon>
+            </div>
+            <div class="feature-text">
+              <h4 class="mat-subtitle-1">Privacy-First</h4>
+              <p class="mat-body-2">Your data is always protected</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <mat-icon>speed</mat-icon>
+            </div>
+            <div class="feature-text">
+              <h4 class="mat-subtitle-1">Real-Time</h4>
+              <p class="mat-body-2">Instant interactions and updates</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <mat-icon>search</mat-icon>
+            </div>
+            <div class="feature-text">
+              <h4 class="mat-subtitle-1">Smart Discovery</h4>
+              <p class="mat-body-2">Find content that matters to you</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="image-container">
+          <img src="aboutus.png" alt="About Our Platform">
+          <div class="image-decoration"></div>
+          <div class="floating-card">
+            <mat-icon>verified</mat-icon>
+            <span>Trusted Platform</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-background">
+      <div class="gradient-sphere"></div>
+      <div class="gradient-sphere"></div>
+      <div class="noise-overlay"></div>
+    </div>
+    <div class="cta-content">
+      <h2 class="mat-display-2">Ready to Join?</h2>
+      <p class="mat-headline-5">Be part of our growing community today</p>
+      <button mat-raised-button class="signup-btn" (click)="navigateToSignUp()">
+        Create Your Account
+        <mat-icon>person_add</mat-icon>
+      </button>
+      <div class="cta-features">
+        <div class="cta-feature">
+          <mat-icon>check_circle</mat-icon>
+          <span>Free to join</span>
+        </div>
+        <div class="cta-feature">
+          <mat-icon>check_circle</mat-icon>
+          <span>No credit card required</span>
+        </div>
+        <div class="cta-feature">
+          <mat-icon>check_circle</mat-icon>
+          <span>Cancel anytime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <mat-icon>forum</mat-icon>
+          <span>SocialConnect</span>
+        </div>
+        <p class="mat-body-2">Connecting people, building communities</p>
+        <div class="social-links">
+          <button mat-icon-button>
+            <mat-icon>facebook</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>twitter</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>linkedin</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4 class="mat-subtitle-1">Quick Links</h4>
+        <mat-nav-list>
+          <a mat-list-item (click)="scrollToFeatures()" class="footer-link">Features</a>
+          <a mat-list-item (click)="scrollToAbout()" class="footer-link">About</a>
+          <a mat-list-item (click)="navigateToSignUp()" class="footer-link">Sign Up</a>
+        </mat-nav-list>
+      </div>
+      <div class="footer-section">
+        <h4 class="mat-subtitle-1">Legal</h4>
+        <mat-nav-list>
+          <a mat-list-item>Privacy Policy</a>
+          <a mat-list-item>Terms of Service</a>
+          <a mat-list-item>Cookie Policy</a>
+        </mat-nav-list>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="mat-caption">© 2024 SocialConnect. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

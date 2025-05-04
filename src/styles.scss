@@ -1,2 +1,42 @@
-html, body { height: 100%; }
-body { margin: 0; }
+/* You can add global styles to this file, and also import other style files */
+@use "./color-pallete.scss" as CP;
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: CP.$Ternary-color;
+  color: CP.$Primary-color;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Custom scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: CP.$Ternary-color;
+}
+
+::-webkit-scrollbar-thumb {
+  background: CP.$Secondary-color;
+  border-radius: 4px;
+  
+  &:hover {
+    background: darken(CP.$Secondary-color, 5%);
+  }
+}
