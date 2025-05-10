@@ -1,0 +1,12 @@
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput placeholder="Search by name" [(ngModel)]="query" (input)="onSearch()" />
+  </mat-form-field>
+
+  <ul *ngIf="filteredUsers.length > 0" class="suggestion-list">
+    <li *ngFor="let user of filteredUsers" (click)="selectUser(user)">
+      {{ user.name }}
+    </li>
+  </ul>
+</div>
