@@ -10,6 +10,8 @@
   border-radius: 20px;
   box-shadow: CP.$Secondary-color 0px 0px 5px;
   z-index: 20;
+  max-width: 110vh;
+  margin: 0 auto;
 }
 
 .postedImageContainer {
@@ -23,9 +25,9 @@
 
 .postInfo {
   display: grid;
-  width: 17%;
+  width: 37%;
   position: absolute;
-  right: 5px;
+  right: 9vh;
   grid-template-columns: 50% 50%;
   font-size: 1.2em;
   text-align: center;

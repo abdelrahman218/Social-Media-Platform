@@ -1,0 +1,39 @@
+<html>
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="cover-photo">
+            <img src="/man-with-glasses-dark-looks-computer-screen-copy-space.jpg" alt="Cover Photo">
+        </div>
+        <div class="profile-info">
+            <img class="profile-picture" [src]="user().profilePicURL" alt="Profile Picture">
+            <h1 class="username">{{user().name}}</h1>
+            <p class="bio">{{user().bio}}</p>
+        </div>
+    </div>
+
+    <div class="profile-stats">
+        <div class="stat">
+            <span class="count">0</span>
+            <span class="label">Posts</span>
+        </div>
+        <div class="stat">
+            <span class="count">0</span>
+            <span class="label">Followers</span>
+        </div>
+        <div class="stat">
+            <span class="count">0</span>
+            <span class="label">Following</span>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <button class="edit-profile">Edit Profile</button>
+        <!-- Posts grid will go here -->
+        <div class="posts-grid">
+            <!-- Individual posts will be rendered here -->
+        </div>
+    </div>
+</div>
+
+<app-user-posts></app-user-posts>
+</html>

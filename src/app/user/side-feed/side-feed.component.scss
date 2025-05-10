@@ -1,0 +1,81 @@
+@use '../../../color-pallete' as CP;
+.layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .sidebar {
+    width: 40vh;
+    padding: 20px;
+    background-color: CP.$Ternary-color;
+    height: 100vh;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    font-size: 3.2vh;
+  }
+  
+  .left-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+  
+  .right-sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+  
+.profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.profile-pic {
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 3vh;
+}
+  
+.sidebar-nav ul {
+    list-style: none;
+    padding: 10px;
+    gap: 10px;
+}
+
+.sidebar-nav ul li {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: CP.$Secondary-color;
+        transform: scale(1.05);
+    }
+}
+
+.sidebar-nav ul li a {
+    text-decoration: none;
+    color: #333;
+    
+    i {
+        width: 5vh;
+        max-width: 5vh;
+        margin-right: 3vh; 
+    }
+}
+  
+  .trending, .suggestions {
+    margin-top: 30px;
+  }
+  
+  .trend-item, .suggestions ul li {
+    margin-bottom: 10px;
+  }
+  
