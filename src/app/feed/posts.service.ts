@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Comment, Post } from '../app.model';
 import { dummyPosts } from './dummy-posts';
+import { User } from '../app.model';
 
 @Injectable({
   providedIn: 'root',
@@ -60,5 +61,10 @@ export class PostsService {
 
   loadNextPosts(){
     this.userFeedPostsSignal.update((oldPosts)=>{return oldPosts.concat(dummyPosts)});
+  }
+  getPostsByUser(user:User){
+    const posts=this.userFeedPosts().filter((post)=>post.postOwner===user);
+    this.userPostsSignal.set(posts);
+    return posts;
   }
 }
