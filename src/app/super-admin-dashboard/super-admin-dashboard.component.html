@@ -1,0 +1,23 @@
+<h2>Super Admin Dashboard</h2>
+
+<div class="add-btn-wrapper">
+  <button (click)="toggleAddForm()" class="add-admin-btn">
+    Add Admin
+  </button>
+</div>
+
+<div *ngIf="showAddForm" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Add Admin</h3>
+    <input [(ngModel)]="newAdminName" placeholder="Enter admin name" />
+    <button (click)="addAdmin()">Save</button>
+    <button (click)="toggleAddForm()">Cancel</button>
+  </div>
+</div>
+
+<ul>
+  <li *ngFor="let admin of admins; let i = index">
+    {{ admin }}
+    <button (click)="deleteAdmin(i)">Delete</button>
+  </li>
+</ul>
