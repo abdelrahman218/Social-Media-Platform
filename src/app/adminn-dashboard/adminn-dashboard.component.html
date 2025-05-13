@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+  <div class="dashboard">
+    <h1>Admin Dashboard</h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">{{ insights.totalUsers }}</div>
+        <div class="stat-label">Total Active Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ insights.totalPosts }}</div>
+        <div class="stat-label">Total Posts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ insights.totalReacts }}</div>
+        <div class="stat-label">Total Reactions</div>
+      </div>
+    </div>
+
+    <div class="section-container">
+      <h2>Active Users</h2>
+      <div class="users-grid">
+        <div class="user-card" *ngFor="let user of users">
+          <div class="user-header">
+            <img [src]="user.profilePicURL" alt="profile" />
+            <h3>{{ user.name }}</h3>
+          </div>
+          <div class="user-stats">
+            Posts: {{ user.posts }} | Reactions: {{ user.reacts }}
+          </div>
+          <button (click)="banUser(user.email)">Ban Account</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-container" #bannedSection>
+      <h2>Banned Users</h2>
+      <div class="users-grid">
+        <div class="banned-user" *ngFor="let user of bannedUsers">
+          <img [src]="user.profilePicURL" alt="profile" />
+          <span>{{ user.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

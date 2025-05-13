@@ -1,6 +1,8 @@
 export type Gender='Male' | 'Female';
 
-export type User={name: string, email: string, bio: string, profilePicURL: string, gender: Gender,coverPhoto?:string};
+export type User={
+  isBanned?: boolean ;name: string, email: string, bio: string, profilePicURL: string, gender: Gender,coverPhoto?:string
+};
 
 export type Comment={id: number, text: string, user: User, dateCreated: Date};
 
