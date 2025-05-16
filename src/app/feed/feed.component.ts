@@ -5,12 +5,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostComponent } from './post/post.component';
 import { PostsService } from './posts.service';
 import { NewPostFormComponent } from './new-post-form/new-post-form.component';
+import { SearchComponent } from './search/search.component';
 import { SideFeedComponent } from '../user/side-feed/side-feed.component';
 import { UserService } from '../user/user.service';
 
+
 @Component({
   selector: 'app-feed',
-  imports: [PostComponent, MatIconModule, MatButtonModule,SideFeedComponent],
+  imports: [PostComponent, MatIconModule, MatButtonModule, SearchComponent,SideFeedComponent],
+
   host: {
     '(scroll)': 'this.onScroll($event)',
   },
