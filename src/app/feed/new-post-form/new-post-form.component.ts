@@ -73,6 +73,7 @@ export class NewPostFormComponent {
       id: 0,
       text_content: this.newPostFormGroup.value.postTextContent || "",
       postOwner: {
+        id: 0,
         name: 'LoggedInUserName',
         email: 'LoggedInUserName@gmail.com',
         bio: 'Logged In User Bio',

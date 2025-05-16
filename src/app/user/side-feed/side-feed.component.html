@@ -4,9 +4,11 @@
     <div class="sidebar left-sidebar">
       <!-- Profile Section -->
       <div class="profile-section">
-        <img [src]="currentUser().profilePicURL" alt="Profile Picture" class="profile-pic"><label>{{currentUser().name}}</label>
+        <a [routerLink]="['/user/profile', user().id]" class="profile-link">
+          <img [src]="user().profilePicURL" alt="Profile Picture" class="profile-pic">
+          <label>{{user().name}}</label>
+        </a>
       </div>
-  
       <!-- Navigation Links -->
       <nav class="sidebar-nav">
         <ul>

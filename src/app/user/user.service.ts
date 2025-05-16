@@ -41,4 +41,7 @@ export class UserService {
             users.map(user => user.email === email ? { ...user, ...updates } : user)
         );
     }
+    getUserById(id: number) {
+        return this.users().find(user => user.id === id);
+    }
 }

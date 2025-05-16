@@ -36,6 +36,7 @@ export class CommentsSectionComponent {
         bio: 'Logged In User Bio',
         profilePicURL: 'LoggedInUserProfilePic',
         gender: 'Male',
+        id: 0
       },
       dateCreated: new Date(),
     };
