@@ -7,7 +7,8 @@ export const dummyUsers: User[] = [
         bio: "Tech enthusiast and coffee lover",
         profilePicURL: "https://randomuser.me/api/portraits/men/1.jpg",
         gender: 'Male',
-        id: 0
+        id: 0,
+        friendId: [1, 2, 3]
     },
     {
         name: "Sarah Chen",

@@ -44,4 +44,7 @@ export class UserService {
     getUserById(id: number) {
         return this.users().find(user => user.id === id);
     }
+    isFriend(id: number) {
+        return this.currentUser().friendId?.includes(id) || false;
+    }
 }

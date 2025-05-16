@@ -27,13 +27,22 @@
     </div>
 
     <div class="profile-content">
+        @if( isOwnProfile()){
         <button class="edit-profile">Edit Profile</button>
-        <!-- Posts grid will go here -->
-        <div class="posts-grid">
-            <!-- Individual posts will be rendered here -->
+        }
+        @else if(!isOwnProfile()){
+        <div>
+            @if(isFriend()){
+            <button class="edit-profile">Friends</button>
+            <button class="edit-profile">Remove Friend</button>
+            }
+            @else if(!isFriend()){
+            <button class="edit-profile">Add Friend</button>
+            }
         </div>
+        }
     </div>
 </div>
-
 <app-user-posts></app-user-posts>
+
 </html>

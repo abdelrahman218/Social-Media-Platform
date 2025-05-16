@@ -26,4 +26,11 @@ export class ProfileComponent {
       coverPhoto: ''
     });
   }
+  isOwnProfile(): boolean {
+    return this.Id === this.userService.getCurrentUser()().id;
+  }
+
+  isFriend(): boolean {
+    return this.userService.isFriend(this.Id);
+  }
 }
