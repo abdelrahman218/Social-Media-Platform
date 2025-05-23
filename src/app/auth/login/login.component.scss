@@ -1,0 +1,177 @@
+@import '../../../color-pallete.scss';
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, $Primary-color 0%, $Secondary-color 100%);
+  padding: 20px;
+}
+
+.login-card {
+  background: $Ternary-color;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+
+  h1 {
+    color: $Primary-color;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: $Secondary-color;
+    font-size: 16px;
+  }
+}
+
+.login-form {
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid $Secondary-color;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background: white;
+
+    &:focus {
+      outline: none;
+      border-color: $Primary-color;
+    }
+  }
+
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    background: $Primary-color;
+    color: $Ternary-color;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: darken($Primary-color, 10%);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: $Secondary-color;
+  }
+  
+  &::before {
+    left: 0;
+  }
+  
+  &::after {
+    right: 0;
+  }
+  
+  span {
+    background: $Ternary-color;
+    padding: 0 10px;
+    color: $Secondary-color;
+    font-size: 14px;
+  }
+}
+
+a{
+  text-decoration: none;
+}
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .social-button {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid $Secondary-color;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    background: white;
+    .google-icon {
+      color: #DB4437;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      padding-top: 6px;
+    }
+
+    i {
+      font-size: 18px;
+    }
+
+    &.google {
+      color: #3c4043;
+      &:hover {
+        background: #f8f8f8;
+        border-color: #DB4437;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.login-footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+
+  p {
+    color: $Secondary-color;
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: $Primary-color;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .forgot-password {
+    display: block;
+    margin-top: 10px;
+  }
+}
