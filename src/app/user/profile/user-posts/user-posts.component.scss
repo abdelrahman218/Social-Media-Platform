@@ -1,0 +1,42 @@
+@use "../../../../color-pallete.scss" as CP;
+
+:host {
+  display: grid;
+  grid-template-columns: 100%;
+  row-gap: 10px;
+  padding: 10px 1vw;
+  width: 98vw;
+  min-height: 10vh;
+  max-height: 150vh;
+  overflow-y: scroll;
+  font-size: 1rem;
+}
+
+div {
+  display: flex;
+  align-items: flex-end;
+  max-height: 8vh;
+}
+
+div button {
+  margin:0 auto;
+  border-radius: 5px;
+}
+
+.text {
+  font-size: 1.5em;
+}
+
+.text p {
+  padding-left: 3px;
+}
+
+.material-icons {
+  color: CP.$Ternary-color;
+}
+
+.noFriendsMessage {
+  display: block;
+  text-align: center;
+  color: var(--mat-primary);
+}
