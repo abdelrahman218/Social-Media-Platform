@@ -1,0 +1,18 @@
+<app-side-feed [user]="user()"></app-side-feed>
+<div class="friends-container">
+    <h3>Friends List</h3>
+    <!-- Friend list -->
+    <div class="friend-list">
+        <!-- This will be repeated for each friend using *ngFor -->
+        @for (friend of friends(); track friend) {
+        <div class="friend-info">
+            <img [src]="friend.profilePicURL" alt="Profile Picture" class="friend-avatar">
+            <span class="friend-name">{{friend.name}}</span>
+        </div>
+        <button class="message-btn">
+            <i class="fas fa-message"></i> Message
+        </button>
+    }
+    </div>
+</div>
+    

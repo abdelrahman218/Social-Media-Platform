@@ -5,6 +5,7 @@ import { ResolveFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { UserService } from "./user.service";
 import { User } from "../app.model";
+import { MessagesComponent } from "./side-feed/messages/messages.component";
 const ProfileResolver: ResolveFn<User> = (route) => {
     return inject(UserService).getUserById(Number(route.paramMap.get('id'))!) || 
                  new RedirectCommand(inject(Router).parseUrl('/404'));
@@ -25,5 +26,8 @@ export const routes: Routes=[
     },{
         path:'settings',
         component:SettingsComponent
+    },{
+        path:'messages',
+        component:MessagesComponent
     }
 ];
