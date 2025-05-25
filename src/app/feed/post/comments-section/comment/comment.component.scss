@@ -2,6 +2,11 @@
     display: block;
 }
 
+mat-card-subtitle{
+    color: var(--mat-on-surface);
+}
+
 .comment{
     border-radius: 20px;
+    background-color: var(--mat-surface);
 }
