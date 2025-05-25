@@ -10,6 +10,7 @@ import { Like, Post, UserEssential, Comment } from "../app.model";
 export class SpringBootBackendAdapter implements BackendAdapter{
     private static userEssentialAdapter(httpUserEssential: any): UserEssential{
         return {
+            profilePicURL: '', //Add Url to fetch user profile picture
             name: httpUserEssential.full_name,
             email: httpUserEssential.email
         }
