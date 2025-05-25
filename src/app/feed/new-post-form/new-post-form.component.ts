@@ -73,12 +73,8 @@ export class NewPostFormComponent {
       id: 0,
       text_content: this.newPostFormGroup.value.postTextContent || "",
       postOwner: {
-        id: 0,
         name: 'LoggedInUserName',
         email: 'LoggedInUserName@gmail.com',
-        bio: 'Logged In User Bio',
-        profilePicURL: 'LoggedInUserProfilePic',
-        gender: 'Male'
       },
       datePosted: new Date(),
       attachedImagesURLs:  imagesURLs || [],
@@ -86,7 +82,7 @@ export class NewPostFormComponent {
       comments: []
     }
 
-    this.postsService.addPost(newPost);
+    this.postsService.addPost(newPost, this.newPostFormGroup.value.images);
   }
   addPost(): boolean {
     if (this.newPostFormGroup.invalid) {
