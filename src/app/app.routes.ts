@@ -19,6 +19,8 @@ export const routes: Routes = [
         path:'user',
         component: UserComponent,
         children:userRoutes
+    },
+    {
         path: 'auth',
         component: AuthComponent,
         children: AuthRoutes
