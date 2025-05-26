@@ -83,11 +83,9 @@ html{
             border-radius: 3vh;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-size: 3vh;
-
-            &:hover {
-                background-color: #0056b3;
-            }
+            font-size: 2.3vh;
+            align-items: center;
+          
         }
 
         .posts-grid {
