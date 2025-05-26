@@ -6,6 +6,7 @@ import {routes as userRoutes} from './user/user.routes';
 import { AuthComponent } from './auth/auth.component';
 import { AuthRoutes } from './auth/auth.routes';
 import { NotFoundComponent } from './auth/not-found/not-found.component';
+import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
 export const routes: Routes = [
     {
         path: '',
@@ -19,6 +20,10 @@ export const routes: Routes = [
         path:'user',
         component: UserComponent,
         children:userRoutes
+    },
+    {
+        path:'direct-messaging',
+        component:DirectMessagingComponent
     },
     {
         path: 'auth',

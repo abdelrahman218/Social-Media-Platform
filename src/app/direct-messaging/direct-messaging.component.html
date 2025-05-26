@@ -1,0 +1,28 @@
+<div class="dm-container">
+  <div class="dm-header">
+    <div class="user-info">
+      <img [src]="recipient.profilePicture" [alt]="recipient.name" class="profile-picture">
+      <h2>{{ recipient.name }}</h2>
+    </div>
+  </div>
+  
+  <div class="messages-container">
+    <div *ngFor="let message of messages" 
+         [ngClass]="{'message': true, 'message-sent': message.sender === 'me', 'message-received': message.sender !== 'me'}">
+      <div class="message-content">
+        {{ message.content }}
+      </div>
+      <div class="message-timestamp">
+        {{ message.timestamp | date:'shortTime' }}
+      </div>
+    </div>
+  </div>
+
+  <div class="message-input">
+    <input type="text" 
+           [(ngModel)]="newMessage" 
+           (keyup.enter)="sendMessage()"
+           placeholder="Type a message...">
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
