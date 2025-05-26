@@ -22,10 +22,13 @@ export const routes: Routes = [
         children:userRoutes
     },
     {
+<<<<<<< HEAD
         path:'direct-messaging',
         component:DirectMessagingComponent
     },
     {
+=======
+>>>>>>> f745c34cdfe6a3e48851b9633003a284ed83920b
         path: 'auth',
         component: AuthComponent,
         children: AuthRoutes
