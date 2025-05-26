@@ -35,7 +35,7 @@ export class HttpPostsService {
   }
 
   unLikePost(postId: number, userEmail: string): Observable<void>{
-    return this.httpClient.post<void>(this.baseUserUri+'/unLikePost', { postId , userEmail }).pipe(take(1));
+    return this.httpClient.post<void>(this.baseUserUri+'/unlikePost', { postId , userEmail }).pipe(take(1));
   }
 
   commentPost(postId: number, userEmail: string, commentText: string): Observable<void>{

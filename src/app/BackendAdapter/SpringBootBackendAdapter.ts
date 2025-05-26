@@ -10,7 +10,7 @@ import { Like, Post, UserEssential, Comment } from "../app.model";
 export class SpringBootBackendAdapter implements BackendAdapter{
     private static userEssentialAdapter(httpUserEssential: any): UserEssential{
         return {
-            profilePicURL: '', //Add Url to fetch user profile picture
+            profilePicURL: httpUserEssential.profile_picture_name, //Add Url to fetch user profile picture
             name: httpUserEssential.full_name,
             email: httpUserEssential.email
         }
@@ -55,11 +55,17 @@ export class SpringBootBackendAdapter implements BackendAdapter{
         });
     }
 
-    backendNewPostAdapter(post: Post, images: FileList | null | undefined) : any {
-        return {
-            userEmail: post.postOwner.email,
-            textContent: post.text_content,
-            images: images || []
+    backendNewPostAdapter(post: Post, images: FileList | null | undefined) : FormData {
+        const fd = new FormData();
+        
+        for (let index = 0; index < (images?.length || 0); index++) {
+            fd.append("images", images?.item(index) as File);
         }
+
+        fd.set("userEmail", post.postOwner.email);
+        fd.set("textContent", post.text_content);
+        
+        
+        return fd;
     }
 }

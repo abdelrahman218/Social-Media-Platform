@@ -1,4 +1,15 @@
 @use '../../../color-pallete.scss' as CP;
+@use '@angular/material' as mat;
+:host{
+    @include mat.form-field-overrides(
+    (
+      filled-focus-label-text-color: var(--mat-primary),
+      filled-focus-active-indicator-color: var(--mat-primary),
+      filled-caret-color: var(--mat-primary)
+    )
+  );
+}
+
 form{
     background-color: CP.$Ternary-color;
     width: 35vw;
@@ -6,6 +17,10 @@ form{
 
 button{
     border-radius: 20px;
+}
+
+h2{
+    text-align: center;
 }
 
 .upload-button{

@@ -84,16 +84,22 @@ export class PostsService {
     if (comment.text === '') {
       return;
     }
-    this.userFeedPostsSignal.set(
-      this.userFeedPosts().map((post) => {
-        if (post.id !== postId) {
-          return post;
-        }
 
-        const oldComments = post.comments;
-        return { ...post, comments: [...oldComments, comment] };
-      })
-    );
+    this.httpPostsService
+      .commentPost(postId, this.userService.getCurrentUser()().email, comment.text)
+      .subscribe(() => {
+        this.userFeedPostsSignal.set(
+          this.userFeedPosts().map((post) => {
+            if (post.id !== postId) {
+              return post;
+            }
+    
+            const oldComments = post.comments;
+            return { ...post, comments: [...oldComments, comment] };
+          })
+        );
+      });
+
   }
 
   loadNextPosts() {
