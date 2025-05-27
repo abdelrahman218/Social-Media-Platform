@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SideFeedComponent } from '../../side-feed/side-feed.component';
+import { UserService } from '../../user.service';
 
 interface Message {
   id: number;
@@ -10,6 +12,7 @@ interface Message {
 }
 
 interface User {
+  id: number;
   name: string;
   profilePicture: string;
 }
@@ -17,25 +20,30 @@ interface User {
 @Component({
   selector: 'app-direct-messaging',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SideFeedComponent],
   templateUrl: './direct-messaging.component.html',
   styleUrl: './direct-messaging.component.scss'
 })
 export class DirectMessagingComponent implements OnInit {
+  @Input() friend!: User;
   messages: Message[] = [];
   newMessage: string = '';
-  recipient: User = {
-    name: 'John Doe',
-    profilePicture: 'assets/default-profile.png' // You can replace this with actual profile picture
-  };
+  userService = inject(UserService);
+  user = this.userService.getCurrentUser();
 
   ngOnInit() {
-    // Add some sample messages
+    if (this.friend) {
+      this.loadMessageHistory();
+    }
+  }
+
+  loadMessageHistory() {
+    // TODO: Replace this with actual API call to get message history
     this.messages = [
       {
         id: 1,
         content: 'Hey, how are you?',
-        sender: 'John Doe',
+        sender: this.friend.name,
         timestamp: new Date(Date.now() - 3600000)
       },
       {
@@ -49,13 +57,15 @@ export class DirectMessagingComponent implements OnInit {
 
   sendMessage() {
     if (this.newMessage.trim()) {
-      this.messages.push({
+      const newMsg: Message = {
         id: this.messages.length + 1,
         content: this.newMessage,
         sender: 'me',
         timestamp: new Date()
-      });
+      };
+      this.messages.push(newMsg);
       this.newMessage = '';
+      // TODO: Add API call to save message
     }
   }
 }

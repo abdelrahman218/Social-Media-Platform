@@ -2,6 +2,7 @@ import { Component, signal,inject } from '@angular/core';
 import { User } from '../../../app.model';
 import { UserService } from '../../user.service';
 import { SideFeedComponent } from '../side-feed.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-messages',
   imports: [SideFeedComponent],
@@ -11,10 +12,16 @@ import { SideFeedComponent } from '../side-feed.component';
 export class MessagesComponent {
   userService = inject(UserService);
   user = this.userService.getCurrentUser();
+  router = inject(Router);
   friends = this.userService.friendList; 
-
+  
   constructor() {
+    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
+    const user = this.userService.getCurrentUser();
     const currentUser = this.user();
     this.userService.getFriends(currentUser.email);
+  }
+  openDM(friend:User) {
+    this.router.navigate(['/user/direct-messages', friend.id]);
   }
 }

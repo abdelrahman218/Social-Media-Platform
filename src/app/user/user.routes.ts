@@ -6,6 +6,7 @@ import { inject } from "@angular/core";
 import { UserService } from "./user.service";
 import { User } from "../app.model";
 import { MessagesComponent } from "./side-feed/messages/messages.component";
+import { DirectMessagingComponent } from "./side-feed/direct-messaging/direct-messaging.component";
 import { FriendsComponent } from "./side-feed/friends/friends.component";
 import { SettingsComponent } from "./side-feed/settings/settings.component";
 const ProfileResolver: ResolveFn<User> = (route) => {
@@ -31,6 +32,9 @@ export const routes: Routes=[
     },{
         path:'messages',
         component:MessagesComponent
+    },{
+        path:'direct-messages/:id',
+        component:DirectMessagingComponent
     },{
         path:'friends',
         component:FriendsComponent
