@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { PostsService } from '../posts.service';
 import { CommentsSectionComponent } from './comments-section/comments-section.component';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-post',
@@ -29,9 +30,10 @@ import { RouterLink } from '@angular/router';
 })
 export class PostComponent {
   private postsService = inject(PostsService);
+  private userService = inject(UserService);
   post = input.required<Post>();
   isLikedByLoggedInUser = computed<boolean>(
-    () => this.post().likes.find((like) => like.userId === 102) !== undefined
+    () => this.post().likes.find((like) => like.user.email === this.userService.getCurrentUser()().email) !== undefined
   );
   isCommentsOpen = signal<boolean>(false);
   get imgUrl() {
@@ -48,5 +50,14 @@ export class PostComponent {
 
   toggleCommentsSection() {
     this.isCommentsOpen.update((oldValue) => !oldValue);
+  }
+  isPostOwner() {
+    return this.post().postOwner.email === this.userService.getCurrentUser()().email;
+  }
+  deletePost() {
+    //this.postsService.deletePost(this.post().id);
+  }
+  editPost() {
+    //this.postsService.editPost(this.post().id);
   }
 }

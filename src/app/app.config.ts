@@ -4,21 +4,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([
-        (req, next) => {
-          const modifiedReq = req.clone({
-            withCredentials: true,
-            headers: req.headers.set('Content-Type', 'application/json')
-          });
-          return next(modifiedReq);
-        }
-      ])
-    ),
-    provideAnimations()
-  ]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient()]
 };

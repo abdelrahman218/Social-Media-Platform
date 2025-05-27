@@ -1,14 +1,17 @@
-import { Injectable, signal } from '@angular/core';
-import { User } from '../app.model';
-import { dummyUsers } from './dummy-users'; 
+import { inject, Injectable, signal } from '@angular/core';
+import { Friend, User, UserEssential } from '../app.model';
+import { dummyUsers } from './dummy-users';
+import { HttpUserService } from './http-user.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
     private users = signal<User[]>(dummyUsers);
-    private currentUser = signal<User>(dummyUsers[0]);
-
+    private currentUser = signal<User>(dummyUsers[8]);
+    private userHttp = inject(HttpUserService);
+    friendList = signal<User[]>([]);
+ 
 
     getAllUsers() {
         return this.users;
@@ -37,7 +40,7 @@ export class UserService {
     }
 
     updateUser(email: string, updates: Partial<User>) {
-        this.users.update(users => 
+        this.users.update(users =>
             users.map(user => user.email === email ? { ...user, ...updates } : user)
         );
     }
@@ -47,4 +50,11 @@ export class UserService {
     isFriend(id: number) {
         return this.currentUser().friendId?.includes(id) || false;
     }
+  getFriends(email: string) {
+    this.userHttp.getFriends(email).subscribe((friends: User[]) => {
+      this.friendList.set(friends);
+      console.log('Friends loaded:', friends);
+    });
+  }
+
 }

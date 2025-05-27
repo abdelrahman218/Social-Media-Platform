@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Post } from '../../app.model';
 import { PostsService } from '../posts.service';
+import { UserService } from '../../user/user.service';
 interface ValidatorFn {
   (control: AbstractControl): ValidationErrors | null;
 }
@@ -54,6 +55,7 @@ const isFormEmpty: ValidatorFn = (
 export class NewPostFormComponent {
   private postsService=inject(PostsService);
   private dialogRef = inject(MatDialogRef<NewPostFormComponent>);
+  private userServices= inject(UserService);
   readonly newPostFormGroup = new FormGroup(
     {
       postTextContent: new FormControl<string>(''),
@@ -73,12 +75,9 @@ export class NewPostFormComponent {
       id: 0,
       text_content: this.newPostFormGroup.value.postTextContent || "",
       postOwner: {
-        id: 0,
-        name: 'LoggedInUserName',
-        email: 'LoggedInUserName@gmail.com',
-        bio: 'Logged In User Bio',
-        profilePicURL: 'LoggedInUserProfilePic',
-        gender: 'Male'
+        profilePicURL: this.userServices.getCurrentUser()().profilePicURL,
+        name: this.userServices.getCurrentUser()().name,
+        email: this.userServices.getCurrentUser()().email,
       },
       datePosted: new Date(),
       attachedImagesURLs:  imagesURLs || [],
@@ -86,7 +85,7 @@ export class NewPostFormComponent {
       comments: []
     }
 
-    this.postsService.addPost(newPost);
+    this.postsService.addPost(newPost, this.newPostFormGroup.value.images);
   }
   addPost(): boolean {
     if (this.newPostFormGroup.invalid) {

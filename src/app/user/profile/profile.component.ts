@@ -25,6 +25,7 @@ export class ProfileComponent {
       gender: 'Male',
       coverPhoto: ''
     });
+    this.userService.getFriends(this.user().email);
   }
   isOwnProfile(): boolean {
     return this.Id === this.userService.getCurrentUser()().id;
