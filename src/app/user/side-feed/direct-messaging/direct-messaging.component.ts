@@ -3,19 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SideFeedComponent } from '../../side-feed/side-feed.component';
 import { UserService } from '../../user.service';
-
-interface Message {
-  id: number;
-  content: string;
-  sender: string;
-  timestamp: Date;
-}
-
-interface User {
-  id: number;
-  name: string;
-  profilePicture: string;
-}
+import { ActivatedRoute } from '@angular/router';
+import { MessageService } from '../../../services/message.service';
+import { interval } from 'rxjs';
+import { User, Message } from '../../../app.model';
 
 @Component({
   selector: 'app-direct-messaging',
@@ -25,47 +16,64 @@ interface User {
   styleUrl: './direct-messaging.component.scss'
 })
 export class DirectMessagingComponent implements OnInit {
-  @Input() friend!: User;
   messages: Message[] = [];
   newMessage: string = '';
   userService = inject(UserService);
+  messageService = inject(MessageService);
+  route = inject(ActivatedRoute);
   user = this.userService.getCurrentUser();
+  foundFriend: User | null = null;
+
+  constructor() {}
 
   ngOnInit() {
-    if (this.friend) {
-      this.loadMessageHistory();
-    }
+    this.route.params.subscribe(params => {
+      const friendEmail = params['email'];
+      console.log('Friend email:', friendEmail);
+      const user = this.userService.getUserByEmail(friendEmail);
+      this.foundFriend = user || null;
+      console.log('Found friend:', this.foundFriend);
+      
+      if (this.foundFriend) {
+        this.loadMessageHistory();
+        
+        // Poll for new messages every 5 seconds
+        interval(5000).subscribe(() => {
+          this.loadMessageHistory();
+        });
+      }
+    });
   }
 
   loadMessageHistory() {
-    // TODO: Replace this with actual API call to get message history
-    this.messages = [
-      {
-        id: 1,
-        content: 'Hey, how are you?',
-        sender: this.friend.name,
-        timestamp: new Date(Date.now() - 3600000)
-      },
-      {
-        id: 2,
-        content: 'I\'m good, thanks! How about you?',
-        sender: 'me',
-        timestamp: new Date(Date.now() - 3500000)
-      }
-    ];
+    if (this.foundFriend && this.user()) {
+      this.messageService.getMessages(this.user().email, this.foundFriend.email)
+        .subscribe({
+          next: (messages) => {
+            this.messages = messages;
+          },
+          error: (error) => {
+            console.error('Error loading messages:', error);
+          }
+        });
+    }
   }
-
+  
   sendMessage() {
-    if (this.newMessage.trim()) {
-      const newMsg: Message = {
-        id: this.messages.length + 1,
-        content: this.newMessage,
-        sender: 'me',
-        timestamp: new Date()
-      };
-      this.messages.push(newMsg);
-      this.newMessage = '';
-      // TODO: Add API call to save message
+    if (this.newMessage.trim() && this.foundFriend && this.user()) {
+      this.messageService.sendMessage(
+        this.user().email,
+        this.foundFriend.email,
+        this.newMessage
+      ).subscribe({
+        next: (message) => {
+          this.messages.push(message);
+          this.newMessage = '';
+        },
+        error: (error) => {
+          console.error('Error sending message:', error);
+        }
+      });
     }
   }
 }

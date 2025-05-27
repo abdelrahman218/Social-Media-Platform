@@ -16,12 +16,11 @@ export class MessagesComponent {
   friends = this.userService.friendList; 
   
   constructor() {
-    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
-    const user = this.userService.getCurrentUser();
+    this.friends.set(this.userService.getAllUsers()().filter((u) => this.user().friendId?.includes(u.id)));
     const currentUser = this.user();
     this.userService.getFriends(currentUser.email);
   }
   openDM(friend:User) {
-    this.router.navigate(['/user/direct-messages', friend.id]);
+    this.router.navigate(['/user/direct-messages', friend.email]);
   }
 }

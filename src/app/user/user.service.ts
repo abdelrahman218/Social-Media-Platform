@@ -57,4 +57,8 @@ export class UserService {
     });
   }
 
+  getUserByEmail(email: string): User | undefined {
+    return this.users().find(user => user.email === email);
+  }
+
 }
