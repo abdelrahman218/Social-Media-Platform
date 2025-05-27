@@ -47,10 +47,14 @@ export class HttpPostsService {
       map((response: any[]) => this.backendAdapter.postsAdapter(response))
     );
   }
-  editPost(postId: number, postText: string, images: FileList | null | undefined): Observable<void> {
-    return this.httpClient.put<void>(
+  editPost(postId: number, postText: string, images:  FileList | null | undefined,userEmail:string): Observable<void> {
+    return this.httpClient.post<void>(
       this.baseUserUri + '/editPost',
-      this.backendAdapter.backendEditPostAdapter(postId, postText, images)
+      this.backendAdapter.backendEditPostAdapter(postId, postText, images,userEmail)
     );
+  }
+  deletePost(postId: number,userEmail:string): Observable<void> {
+    const params = new HttpParams().set('postId', postId).set('userEmail',userEmail);
+    return this.httpClient.get<void>(`${this.baseUserUri}/deletePost`, { params });
   }
 }

@@ -1,0 +1,33 @@
+<form [formGroup]="newPostFormGroup" (ngSubmit)="addPost()">
+    <h2 mat-dialog-title>Edit Post</h2>
+
+    <mat-dialog-content>
+        <mat-form-field class="w-full">
+            <mat-label>Edit your thoughts</mat-label>
+            <textarea matInput formControlName="postTextContent" rows="4"></textarea>
+        </mat-form-field>
+
+        <div class="upload-button-field">
+            <label for="post-pics" class="upload-button">+ Upload Pictures</label>
+            <input type="file" id="post-pics" style="display: none" (change)="onImagePicked($event.target)"
+                accept="image/jpeg, image/png" multiple />
+        </div>
+
+        <!-- Preview existing images -->
+        @if(originalImageURLs.length > 0) {
+        <div>
+            <p>Existing Images:</p>
+            @for (url of originalImageURLs; track $index) {
+            <img [src]="url" alt="Image" style="max-width: 100px; margin: 5px" />
+        }
+        </div>
+        }
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button type="button" mat-stroked-button color="warn" (click)="onCancel()">
+            Cancel
+        </button>
+        <button type="submit" mat-button color="primary">Save</button>
+    </mat-dialog-actions>
+</form>

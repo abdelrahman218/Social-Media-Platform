@@ -80,7 +80,7 @@ export class SpringBootBackendAdapter implements BackendAdapter {
         }
     });
     }
-    backendEditPostAdapter(postId: number, postText: string, images: FileList | null | undefined): FormData {
+    backendEditPostAdapter(postId: number, postText: string, images: FileList | null | undefined,userEmail:string): FormData {
         const fd = new FormData();
 
         for (let index = 0; index < (images?.length || 0); index++) {
@@ -89,7 +89,7 @@ export class SpringBootBackendAdapter implements BackendAdapter {
 
         fd.set("postId", postId.toString());
         fd.set("textContent", postText);
-
+        fd.set("userEmail", userEmail); 
         return fd;
     }
 }
