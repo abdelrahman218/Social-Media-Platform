@@ -46,13 +46,13 @@ Based on the SocialConnect platform requirements, the frontend supports the foll
    ```
 5. Access the application on http://localhost:4200/
 
-##Development
+## Development
 
 -**Code Structure**: Follow Angular's modular architecture with components, services, and modules for each feature.
 -**Maintainability**: Use TypeScript best practices and modular code.
 -**Performance**: Ensure page load times are under 2 seconds, as per non-functional requirements.
 
-##Deployment
+## Deployment
 
 Build the production version:
 
