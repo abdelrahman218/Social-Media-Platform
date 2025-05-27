@@ -5,14 +5,20 @@
       <p>Join our community and start sharing</p>
     </div>
     
-    <form class="signup-form" (ngSubmit)="onSubmit()">
+    <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Full Name</mat-label>
         <input 
           matInput
           type="text" 
-          name="fullName"
+          formControlName="full_name"
           required>
+        <mat-error *ngIf="signupForm.get('full_name')?.hasError('required') && signupForm.get('full_name')?.touched">
+          Full name is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('full_name')?.hasError('minlength') && signupForm.get('full_name')?.touched">
+          Full name must be at least 3 characters
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
@@ -20,36 +26,59 @@
         <input 
           matInput
           type="email" 
-          name="email"
+          formControlName="email"
           required>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="signupForm.get('gender')?.hasError('required') && signupForm.get('gender')?.touched">
+          Please select your gender
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Date of Birth</mat-label>
         <input 
-          matInput
-          [matDatepicker]="picker"
-          name="dateOfBirth"
+          matInput 
+          [matDatepicker]="picker" 
+          formControlName="dateOfBirth"
+          [max]="maxDate"
           required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="signupForm.get('dateOfBirth')?.hasError('required') && signupForm.get('dateOfBirth')?.touched">
+          Date of birth is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('dateOfBirth')?.hasError('tooYoung') && signupForm.get('dateOfBirth')?.touched">
+          You must be at least 13 years old to register
+        </mat-error>
       </mat-form-field>
-
-      <div class="gender-selection">
-        <label>Gender</label>
-        <mat-radio-group formControlName="gender" class="gender-radio-group">
-          <mat-radio-button value="male">Male</mat-radio-button>
-          <mat-radio-button value="female">Female</mat-radio-button>
-        </mat-radio-group>
-      </div>
       
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Password</mat-label>
         <input 
           matInput
           type="password" 
-          name="password"
+          formControlName="password"
           required>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
+          Password must be at least 8 characters
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
@@ -57,24 +86,29 @@
         <input 
           matInput
           type="password" 
-          name="confirmPassword"
+          formControlName="confirmPassword"
           required>
+        <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched">
+          Please confirm your password
+        </mat-error>
+        <mat-error *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched">
+          Passwords do not match
+        </mat-error>
       </mat-form-field>
+
+      <mat-checkbox formControlName="isPrivate" class="privacy-checkbox">
+        Make my profile private
+      </mat-checkbox>
       
-      <button type="submit" class="signup-button">
-        Sign Up
+      <button 
+        type="submit" 
+        mat-raised-button
+        color="primary"
+        class="signup-button"
+        [disabled]="!signupForm.valid || isLoading">
+        <span *ngIf="!isLoading">Sign Up</span>
+        <span *ngIf="isLoading">Creating Account...</span>
       </button>
-      
-      <mat-divider class="divider">
-        <span class="divider-text">or</span>
-      </mat-divider>
-      
-      <div class="social-signup">
-        <a class="social-button google" href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&client_id=246329650437-v9qbhke6kioj32beqnmskrukk2c7g68p.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A4200%2Fauth%2Fgoogle%2Fcallback&state=abc123&prompt=select_account">
-          <i class="fa-brands fa-google"></i>
-        Continue with Google
-    </a>
-      </div>
     </form>
     
     <div class="signup-footer">

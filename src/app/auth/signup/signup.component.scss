@@ -10,7 +10,8 @@
 .signup-container {
   display: flex;
   justify-content: center;
-  min-height: 100%;
+  align-items: center;
+  min-height: 100vh;
   background: linear-gradient(135deg, $Primary-color 0%, $Secondary-color 100%);
   padding: 20px;
 }
@@ -23,7 +24,7 @@ a{
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   padding: 40px;
   width: 100%;
-  max-width: 420px;
+  max-width: 500px;
   margin: 20px 0;
 }
 
@@ -47,25 +48,44 @@ a{
 .signup-form {
   .form-field {
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 
     ::ng-deep {
-      .mat-mdc-form-field-subscript-wrapper {
-        display: none;
+      .mat-mdc-form-field {
+        width: 100%;
       }
 
-      .mat-mdc-form-field-flex {
-        background-color: white;
+      .mat-mdc-form-field-subscript-wrapper {
+        display: block !important;
+        position: static !important;
+      }
+
+      .mat-mdc-form-field-error-wrapper {
+        padding: 0 !important;
+        position: static !important;
+      }
+
+      .mat-mdc-form-field-error {
+        color: #dc3545 !important;
+        font-size: 12px !important;
+        margin-top: 4px !important;
+        display: block !important;
+      }
+
+      .mat-mdc-form-field-invalid {
+        .mat-mdc-form-field-flex {
+          border-color: #dc3545 !important;
+        }
       }
 
       .mat-mdc-text-field-wrapper {
-        background-color: white;
-      }
-
-      .mat-datepicker-toggle {
-        color: $Secondary-color;
+        background-color: white !important;
       }
     }
+  }
+
+  .privacy-checkbox {
+    margin: 20px 0;
   }
 
   .signup-button {
@@ -79,6 +99,7 @@ a{
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-top: 20px;
 
     &:hover {
       background: darken($Primary-color, 10%);
@@ -92,19 +113,55 @@ a{
 }
 
 .divider {
-  margin: 24px 0;
-  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #666;
 
-  .divider-text {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: $Ternary-color;
-    padding: 0 16px;
-    color: $Secondary-color;
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  span {
+    padding: 0 10px;
     font-size: 14px;
   }
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #757575;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background-color: #f1f3f4;
+  }
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
 }
 
 .social-signup {
@@ -197,5 +254,31 @@ a{
         border-color: #A08870;
       }
     }
+  }
+}
+
+// Error message styles
+::ng-deep {
+  .mat-mdc-form-field-error {
+    color: #dc3545 !important;
+    font-size: 12px !important;
+    margin-top: 4px !important;
+    display: block !important;
+  }
+
+  .mat-mdc-form-field-invalid {
+    .mat-mdc-form-field-flex {
+      border-color: #dc3545 !important;
+    }
+  }
+
+  .mat-mdc-form-field-error-wrapper {
+    padding: 0 !important;
+    position: static !important;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: block !important;
+    position: static !important;
   }
 }
