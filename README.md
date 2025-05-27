@@ -48,9 +48,9 @@ Based on the SocialConnect platform requirements, the frontend supports the foll
 
 ## Development
 
--**Code Structure**: Follow Angular's modular architecture with components, services, and modules for each feature.
--**Maintainability**: Use TypeScript best practices and modular code.
--**Performance**: Ensure page load times are under 2 seconds, as per non-functional requirements.
+- **Code Structure**: Follow Angular's modular architecture with components, services, and modules for each feature.
+- **Maintainability**: Use TypeScript best practices and modular code.
+- **Performance**: Ensure page load times are under 2 seconds, as per non-functional requirements.
 
 ## Deployment
 
