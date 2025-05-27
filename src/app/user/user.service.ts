@@ -70,27 +70,17 @@ export class UserService {
             this.isFriendSignal.set(isFriend);
         });
     }
-
-    getFriends(email: string) {
-        this.userHttp.getFriends(email).subscribe((friends: User[]) => {
-            this.friendList.set(friends);
-        });
+    getFriends(email: string): Observable<User[]> {
+        return this.userHttp.getFriends(email).pipe(
+            tap((friends: User[]) => {
+                this.friendList.set(friends);
+                console.log('Friends loaded:', friends);
+            })
+        );
     }
-    getUserByEmail(email: string) {
-        const user = this.users().find(u => u.email === email);
-        return user;
-    }
-  getFriends(email: string): Observable<User[]> {
-    return this.userHttp.getFriends(email).pipe(
-      tap((friends: User[]) => {
-        this.friendList.set(friends);
-        console.log('Friends loaded:', friends);
-      })
-    );
-  }
 
-  getUserByEmail(email: string): User | undefined {
-    return this.users().find(user => user.email === email);
-  }
+    getUserByEmail(email: string): User | undefined {
+        return this.users().find(user => user.email === email);
+    }
 
 }
