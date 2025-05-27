@@ -1,7 +1,9 @@
 @use '../../../color-pallete' as CP;
 
-html{
-    overflow-y: scroll;
+:host {
+    display: block;
+    height: 100vh;
+    overflow-y: auto;
 }
 .profile-container {
     max-width: 90%;
