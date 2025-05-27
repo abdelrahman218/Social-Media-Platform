@@ -1,20 +1,20 @@
 <app-side-feed [user]="user()"></app-side-feed> 
 <div class="dm-container">
   <div class="dm-header">
-    <div class="user-info">
-      <img [src]="friend.profilePicture" [alt]="friend.name" class="profile-picture">
-      <h2>{{ friend.name }}</h2>
+    <div class="user-info" *ngIf="foundFriend">
+      <img [src]="foundFriend.profilePicURL" [alt]="foundFriend.name" class="profile-picture">
+      <h2>{{ foundFriend.name }}</h2>
     </div>
   </div>
   
-  <div class="messages-container">
+  <div class="messages-container" #messagesContainer>
     <div *ngFor="let message of messages" 
-         [ngClass]="{'message': true, 'message-sent': message.sender === 'me', 'message-received': message.sender !== 'me'}">
+         [ngClass]="{'message': true, 'message-sent': message.sender.email === user().email, 'message-received': message.reciever.email === user().email}">
       <div class="message-content">
-        {{ message.content }}
+        {{ message.text }}
       </div>
       <div class="message-timestamp">
-        {{ message.timestamp | date:'shortTime' }}
+        {{ message.dateCreated ? (message.dateCreated | date:'shortTime') : 'Just now' }}
       </div>
     </div>
   </div>

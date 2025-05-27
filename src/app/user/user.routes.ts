@@ -25,18 +25,18 @@ export const routes: Routes = [
             component: ProfileComponent,
             resolve: { User: ProfileResolver },
         },
-        ]
-    }, {
-        path: 'settings',
-        component: SettingsComponent
-    }, {
-        path: 'messages',
-        component: MessagesComponent
-    }, {
-        path: 'direct-messages/:id',
-        component: DirectMessagingComponent
-    }, {
-        path: 'friends',
-        component: FriendsComponent
+    ]
+    },{
+        path:'settings',
+        component:SettingsComponent
+    },{
+        path:'messages',
+        component:MessagesComponent
+    },{
+        path:'direct-messages/:email',
+        component:DirectMessagingComponent
+    },{
+        path:'friends',
+        component:FriendsComponent
     }
 ];
