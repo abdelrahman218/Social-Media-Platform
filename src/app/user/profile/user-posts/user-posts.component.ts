@@ -19,7 +19,10 @@ export class UserPostsComponent implements OnInit {
   user = this.userService.getCurrentUser();
   posts = this.postsService.userPosts;
   ngOnInit(): void {
-      this.postsService.getPostsByUser(this.user());
+      const currentUser = this.user();
+      if (currentUser) {
+        this.postsService.getPostsByUser(currentUser);
+      }
   }
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);

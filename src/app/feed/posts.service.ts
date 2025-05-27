@@ -18,7 +18,10 @@ export class PostsService {
 
   //For Testing Purposes
   constructor() {
-    this.getFeedPostsFromBackend(this.userService.getCurrentUser()().email);
+    const currentUser = this.userService.getCurrentUser()();
+    if (currentUser) {
+      this.getFeedPostsFromBackend(currentUser.email);
+    }
   }
 
   getFeedPostsFromBackend(userEmail: string) {
@@ -30,18 +33,21 @@ export class PostsService {
   }
 
   likePost(postId: number) {
+    const currentUserSignal = this.userService.getCurrentUser();
+    const currentUser = currentUserSignal();
+    if (!currentUser) {
+      return;
+    }
     this.httpPostsService
-      .likePost(postId, this.userService.getCurrentUser()().email)
+      .likePost(postId, currentUser.email)
       .subscribe(() => {
         const updatedUserFeedPosts = this.userFeedPostsSignal().flatMap(
           (post) => {
-            const loggedInUser: WritableSignal<UserEssential> =
-              this.userService.getCurrentUser();
             if (post.id !== postId) {
               return post;
             }
-
-            post.likes.push({ user: loggedInUser(), time: new Date() });
+            // Only push like if currentUser is defined
+            post.likes.push({ user: currentUser, time: new Date() });
 
             return { ...post };
           }
@@ -51,19 +57,22 @@ export class PostsService {
   }
 
   unlikePost(postId: number) {
+    const currentUserSignal = this.userService.getCurrentUser();
+    const currentUser = currentUserSignal();
+    if (!currentUser) {
+      return;
+    }
     this.httpPostsService
-      .unLikePost(postId, this.userService.getCurrentUser()().email)
+      .unLikePost(postId, currentUser.email)
       .subscribe(() => {
         const updatedUserFeedPosts = this.userFeedPostsSignal().flatMap(
           (post) => {
-            const loggedInUserId: WritableSignal<UserEssential> =
-              this.userService.getCurrentUser();
             if (post.id !== postId) {
               return post;
             }
 
             post.likes = post.likes.filter(
-              (post) => post.user.email !== loggedInUserId().email
+              (like) => like.user.email !== currentUser.email
             );
 
             return { ...post };
@@ -86,8 +95,12 @@ export class PostsService {
       return;
     }
 
+    const currentUser = this.userService.getCurrentUser()();
+    if (!currentUser) {
+      return;
+    }
     this.httpPostsService
-      .commentPost(postId, this.userService.getCurrentUser()().email, comment.text)
+      .commentPost(postId, currentUser.email, comment.text)
       .subscribe(() => {
         this.userFeedPostsSignal.set(
           this.userFeedPosts().map((post) => {
@@ -104,8 +117,12 @@ export class PostsService {
   }
 
   loadNextPosts() {
+    const currentUser = this.userService.getCurrentUser()();
+    if (!currentUser) {
+      return;
+    }
     this.httpPostsService
-      .getFeedPosts(this.userService.getCurrentUser()().email, 10)
+      .getFeedPosts(currentUser.email, 10)
       .subscribe((posts: Post[]) => {
         this.userFeedPostsSignal.update((oldPosts) => {
           return oldPosts.concat(posts);

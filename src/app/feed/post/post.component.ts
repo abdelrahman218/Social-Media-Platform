@@ -36,7 +36,7 @@ export class PostComponent {
   private dialog = inject(MatDialog);
   post = input.required<Post>();
   isLikedByLoggedInUser = computed<boolean>(
-    () => this.post().likes.find((like) => like.user.email === this.userService.getCurrentUser()().email) !== undefined
+    () => this.post().likes.find((like) => like.user.email === this.userService.getCurrentUser()()?.email) !== undefined
   );
   isCommentsOpen = signal<boolean>(false);
   get imgUrl() {
@@ -55,10 +55,14 @@ export class PostComponent {
     this.isCommentsOpen.update((oldValue) => !oldValue);
   }
   isPostOwner() {
-    return this.post().postOwner.email === this.userService.getCurrentUser()().email;
+    return this.post().postOwner.email === this.userService.getCurrentUser()()?.email;
   }
   deletePost() {
-    this.postsService.deletePost(this.post().id, this.userService.getCurrentUser()().email);
+    const currentUser = this.userService.getCurrentUser();
+    const email = currentUser()?.email;
+    if (email) {
+      this.postsService.deletePost(this.post().id, email);
+    }
   }
 
   editPost() {

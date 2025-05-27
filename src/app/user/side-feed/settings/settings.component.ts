@@ -11,18 +11,33 @@ import { SideFeedComponent } from '../side-feed.component';
 })
 export class SettingsComponent {
   private userService = inject(UserService);
-  user: User = this.userService.getCurrentUser()();
+  user: User | null = this.userService.getCurrentUser()();
   showPassword = false;
   showConfirmPassword = false;
-  confirmPassword = this.user.password;
-
+  confirmPassword = this.user?.password;
+  
+  onProfilePicSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        if (this.user) {
+          this.user.profilePicURL = e.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   saveChanges() {
-    if (this.confirmPassword !== this.user.password) {
+    if (this.confirmPassword !== this.user?.password) {
       alert('Passwords do not match!');
       return;
     }
 
-    this.userService.updateUser(this.user.email, { ...this.user });
-    alert('updated successfully');
+    if (this.user) {
+      this.userService.updateUser(this.user.email, { ...this.user });
+      alert('updated successfully');
+    }
   }
 }
