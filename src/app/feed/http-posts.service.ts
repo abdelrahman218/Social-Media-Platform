@@ -14,7 +14,7 @@ export class HttpPostsService {
   private httpClient = inject(HttpClient);
 
   getFeedPosts(userEmail: string, numOfPosts: number): Observable<Post[]> {
-    const params=new HttpParams().set('userEmail', userEmail).set('numOfPosts', numOfPosts);
+    const params = new HttpParams().set('userEmail', userEmail).set('numOfPosts', numOfPosts);
 
     return this.httpClient.get<Post[]>(this.baseUserUri + '/getFeedPosts', { params }).pipe(
       map((response: any) => response),
@@ -30,15 +30,21 @@ export class HttpPostsService {
     );
   }
 
-  likePost(postId: number, userEmail: string): Observable<void>{
-    return this.httpClient.post<void>(this.baseUserUri+'/likePost', { postId , userEmail }).pipe(take(1));
+  likePost(postId: number, userEmail: string): Observable<void> {
+    return this.httpClient.post<void>(this.baseUserUri + '/likePost', { postId, userEmail }).pipe(take(1));
   }
 
-  unLikePost(postId: number, userEmail: string): Observable<void>{
-    return this.httpClient.post<void>(this.baseUserUri+'/unlikePost', { postId , userEmail }).pipe(take(1));
+  unLikePost(postId: number, userEmail: string): Observable<void> {
+    return this.httpClient.post<void>(this.baseUserUri + '/unlikePost', { postId, userEmail }).pipe(take(1));
   }
 
-  commentPost(postId: number, userEmail: string, commentText: string): Observable<void>{
-    return this.httpClient.post<void>(this.baseUserUri+'/commentPost', { postId , userEmail , commentText }).pipe(take(1));
+  commentPost(postId: number, userEmail: string, commentText: string): Observable<void> {
+    return this.httpClient.post<void>(this.baseUserUri + '/commentPost', { postId, userEmail, commentText }).pipe(take(1));
+  }
+  getUserPosts(email: string): Observable<any[]> {
+    const params = new HttpParams().set('email', email);
+    return this.httpClient.get<any[]>(`${this.baseUserUri}/getUserPosts`, { params }).pipe(
+      map((response: any[]) => this.backendAdapter.postsAdapter(response))
+    );
   }
 }

@@ -93,7 +93,7 @@ export class PostsService {
             if (post.id !== postId) {
               return post;
             }
-    
+
             const oldComments = post.comments;
             return { ...post, comments: [...oldComments, comment] };
           })
@@ -113,10 +113,14 @@ export class PostsService {
   }
 
   getPostsByUser(user: User) {
-    const posts = this.userFeedPosts().filter(
-      (post) => post.postOwner === user
-    );
-    this.userPostsSignal.set(posts);
-    return posts;
+    this.httpPostsService
+      .getUserPosts(user.email)
+      .subscribe((posts: Post[] | null) => {
+        console.log('Posts for user:', user.email, posts);
+        const safePosts = posts ?? [];
+        const userPosts = safePosts.filter((post) => post.postOwner?.email === user.email);
+        this.userPostsSignal.set(userPosts);
+        console.log('User posts:', userPosts);
+      });
   }
 }

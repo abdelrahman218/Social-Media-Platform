@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { UserService } from '../../user.service';
-import { User } from '../../../app.model';
+import { User, UserEssential } from '../../../app.model';
 import { SideFeedComponent } from '../side-feed.component';
 @Component({
   selector: 'app-friends',
@@ -9,12 +9,13 @@ import { SideFeedComponent } from '../side-feed.component';
   styleUrl: './friends.component.scss'
 })
 export class FriendsComponent {
-  friends=signal<User[]>([]);
   userService = inject(UserService);
   user = this.userService.getCurrentUser();
-constructor() {
-    const user = this.userService.getCurrentUser();
-    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
+  friends = this.userService.friendList; 
+
+  constructor() {
+    const currentUser = this.user();
+    this.userService.getFriends(currentUser.email);
   }
   removeFriend(friendId: number) {
 //untill done in service

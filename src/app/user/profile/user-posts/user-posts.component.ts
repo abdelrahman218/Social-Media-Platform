@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component,inject, OnInit } from '@angular/core';
 import { PostComponent } from '../../../feed/post/post.component';
 import { PostsService } from '../../../feed/posts.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,13 +12,15 @@ import { UserService } from '../../user.service';
   templateUrl: './user-posts.component.html',
   styleUrl: './user-posts.component.scss'
 })
-export class UserPostsComponent {
+export class UserPostsComponent implements OnInit {
   private postsService = inject(PostsService);
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
   user = this.userService.getCurrentUser();
-  posts = this.postsService.getPostsByUser(this.user());
-  
+  posts = this.postsService.userPosts;
+  ngOnInit(): void {
+      this.postsService.getPostsByUser(this.user());
+  }
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);
   }
