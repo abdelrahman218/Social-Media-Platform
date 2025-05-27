@@ -1,0 +1,45 @@
+@use '../../../color-pallete.scss' as CP;
+@use '@angular/material' as mat;
+:host{
+    @include mat.form-field-overrides(
+    (
+      filled-focus-label-text-color: var(--mat-primary),
+      filled-focus-active-indicator-color: var(--mat-primary),
+      filled-caret-color: var(--mat-primary)
+    )
+  );
+}
+
+form{
+    background-color: CP.$Ternary-color;
+    width: 35vw;
+}
+
+button{
+    border-radius: 20px;
+}
+
+h2{
+    text-align: center;
+}
+
+.upload-button{
+    background: CP.$Primary-color;
+    color: CP.$Ternary-color;
+    width: 30%;
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover{
+        background-color: var(--mat-primary-light);
+    }
+}
+
+.text{
+    font-size: 1.5em;
+}
+
+.content{
+    height: fit-content;
+    overflow: visible;
+}

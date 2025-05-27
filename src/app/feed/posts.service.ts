@@ -3,6 +3,7 @@ import { Comment, Post, UserEssential } from '../app.model';
 import { User } from '../app.model';
 import { UserService } from '../user/user.service';
 import { HttpPostsService } from './http-posts.service';
+import { Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -122,5 +123,34 @@ export class PostsService {
         this.userPostsSignal.set(userPosts);
         console.log('User posts:', userPosts);
       });
+  }
+
+editPost(postId: number, postText: string, images: FileList | null | undefined,userEmail:string): Observable<any> {
+  return this.httpPostsService
+    .editPost(postId, postText, images,userEmail)
+    .pipe(
+      tap(() => {
+        // Update the local state after successful API call
+        this.userFeedPostsSignal.set(
+          this.userFeedPosts().map((post) => {
+            if (post.id !== postId) {
+              return post;
+            }
+            return { ...post, text_content: postText };
+          })
+        );
+      })
+    );
+}
+
+  deletePost(postId: number, userEmail: string) {
+    this.httpPostsService.deletePost(postId, userEmail).subscribe(() => {
+      this.userFeedPostsSignal.set(
+        this.userFeedPosts().filter((post) => post.id !== postId)
+      );
+      this.userPostsSignal.set(
+        this.userPosts().filter((post) => post.id !== postId)
+      );
+    });
   }
 }

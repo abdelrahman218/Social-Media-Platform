@@ -50,11 +50,11 @@
       </span>
       <p>@if(isLikedByLoggedInUser()){ Liked } @else { Like }</p>
     </button>
-    <button mat-button color="primary" (click)="toggleCommentsSection()" class="text">
-      <span class="material-icons"> comment </span>
-      <p>Comment</p>
-    </button>
   }
+  <button mat-button color="primary" (click)="toggleCommentsSection()" class="text">
+    <span class="material-icons"> comment </span>
+    <p>Comment</p>
+  </button>
   <div class="postInfo">
     <div class="likes">{{ post().likes.length }} Likes</div>
     <div class="comments">{{ post().comments.length }} Comments</div>
