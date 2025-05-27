@@ -24,7 +24,7 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
   messageService = inject(MessageService);
   httpUserService = inject(HttpUserService);
   route = inject(ActivatedRoute);
-  user = this.userService.getCurrentUser();
+  user: User | null = this.userService.getCurrentUser()();
   foundFriend: User | null = null;
   private shouldScroll = false;
 
@@ -83,9 +83,9 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
   }
 
   loadMessageHistory() {
-    if (this.foundFriend && this.user()) {
-      console.log('Loading message history between:', this.user().email, 'and', this.foundFriend.email);
-      this.messageService.getMessages(this.user().email, this.foundFriend.email)
+    if (this.foundFriend && this.user) {
+      console.log('Loading message history between:', this.user!.email, 'and', this.foundFriend!.email);
+      this.messageService.getMessages(this.user!.email, this.foundFriend!.email)
         .subscribe({
           next: (messages) => {
             console.log('Received messages:', messages);
@@ -103,22 +103,22 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
         });
     } else {
       console.log('Cannot load messages - missing user or friend:', {
-        currentUser: this.user(),
+        currentUser: this.user,
         foundFriend: this.foundFriend
       });
     }
   }
   
   sendMessage() {
-    if (this.newMessage.trim() && this.foundFriend && this.user()) {
+    if (this.newMessage.trim() && this.foundFriend && this.user) {
       console.log('Sending message:', {
-        from: this.user().email,
+        from: this.user?.email,
         to: this.foundFriend.email,
         text: this.newMessage
       });
       
       this.messageService.sendMessage(
-        this.user().email,
+        this.user!.email,
         this.foundFriend.email,
         this.newMessage
       ).subscribe({
@@ -135,7 +135,7 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
     } else {
       console.log('Cannot send message - missing data:', {
         messageText: this.newMessage,
-        currentUser: this.user(),
+        currentUser: this.user,
         foundFriend: this.foundFriend
       });
     }

@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 export class MessagesComponent implements OnInit {
   userService = inject(UserService);
   messageService = inject(MessageService);
-  user = this.userService.getCurrentUser();
+   user: User | null = this.userService.getCurrentUser()();
   router = inject(Router);
   friends = signal<User[]>([]);
   latestMessages = new Map<string, Message>();
@@ -30,13 +30,13 @@ export class MessagesComponent implements OnInit {
         return currentUser && currentUser.friendId?.includes(u.id);
       })
     );
-const currentUser = this.user();
+const currentUser = this.user;
 if (currentUser) {
   this.userService.getFriends(currentUser.email).subscribe({
     next: (friendsList: User[]) => {
       if (Array.isArray(friendsList)) {
         friendsList.forEach((friend: User) => {
-          const currentUserEmail = this.user()?.email;
+          const currentUserEmail = this.user?.email;
           if (currentUserEmail && friend.email) {
             this.messageService.getLatestMessage(currentUserEmail, friend.email)
               .subscribe({
@@ -80,6 +80,6 @@ if (currentUser) {
 
   isMessageFromMe(friend: User): boolean {
     const message = this.latestMessages.get(friend.email);
-    return message?.sender.email === this.user()?.email;
+    return message?.sender.email === this.user?.email;
   }
 }

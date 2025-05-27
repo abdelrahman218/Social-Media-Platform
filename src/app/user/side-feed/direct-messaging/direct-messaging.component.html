@@ -1,4 +1,6 @@
-<app-side-feed [user]="user()"></app-side-feed> 
+@if(user) {
+<app-side-feed [user]="user"></app-side-feed> 
+}
 <div class="dm-container">
   <div class="dm-header">
     <div class="user-info" *ngIf="foundFriend">
@@ -9,7 +11,7 @@
   
   <div class="messages-container" #messagesContainer>
     <div *ngFor="let message of messages" 
-         [ngClass]="{'message': true, 'message-sent': message.sender.email === user().email, 'message-received': message.reciever.email === user().email}">
+         [ngClass]="{'message': true, 'message-sent': message.sender.email === user()?.email, 'message-received': message.reciever.email === user()?.email}">
       <div class="message-content">
         {{ message.text }}
       </div>
