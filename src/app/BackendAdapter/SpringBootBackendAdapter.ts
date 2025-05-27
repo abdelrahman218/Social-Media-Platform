@@ -80,4 +80,16 @@ export class SpringBootBackendAdapter implements BackendAdapter {
         }
     });
     }
+    backendEditPostAdapter(postId: number, postText: string, images: FileList | null | undefined): FormData {
+        const fd = new FormData();
+
+        for (let index = 0; index < (images?.length || 0); index++) {
+            fd.append("images", images?.item(index) as File);
+        }
+
+        fd.set("postId", postId.toString());
+        fd.set("textContent", postText);
+
+        return fd;
+    }
 }

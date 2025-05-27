@@ -47,4 +47,10 @@ export class HttpPostsService {
       map((response: any[]) => this.backendAdapter.postsAdapter(response))
     );
   }
+  editPost(postId: number, postText: string, images: FileList | null | undefined): Observable<void> {
+    return this.httpClient.put<void>(
+      this.baseUserUri + '/editPost',
+      this.backendAdapter.backendEditPostAdapter(postId, postText, images)
+    );
+  }
 }

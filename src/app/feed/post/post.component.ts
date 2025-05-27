@@ -51,4 +51,13 @@ export class PostComponent {
   toggleCommentsSection() {
     this.isCommentsOpen.update((oldValue) => !oldValue);
   }
+  isPostOwner() {
+    return this.post().postOwner.email === this.userService.getCurrentUser()().email;
+  }
+  deletePost() {
+    //this.postsService.deletePost(this.post().id);
+  }
+  editPost() {
+    //this.postsService.editPost(this.post().id);
+  }
 }

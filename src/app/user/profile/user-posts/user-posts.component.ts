@@ -24,5 +24,7 @@ export class UserPostsComponent implements OnInit {
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);
   }
+  editPost(id:number){
 
+  }
 }

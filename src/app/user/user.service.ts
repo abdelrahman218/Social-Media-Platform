@@ -8,7 +8,7 @@ import { HttpUserService } from './http-user.service';
 })
 export class UserService {
     private users = signal<User[]>(dummyUsers);
-    private currentUser = signal<User>(dummyUsers[0]);
+    private currentUser = signal<User>(dummyUsers[8]);
     private userHttp = inject(HttpUserService);
     friendList = signal<User[]>([]);
  
@@ -52,7 +52,7 @@ export class UserService {
     }
   getFriends(email: string) {
     this.userHttp.getFriends(email).subscribe((friends: User[]) => {
-      this.friendList.set(friends); // ✅ update signal
+      this.friendList.set(friends);
       console.log('Friends loaded:', friends);
     });
   }

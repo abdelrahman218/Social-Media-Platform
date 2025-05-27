@@ -9,11 +9,12 @@ import { SideFeedComponent } from '../side-feed.component';
   styleUrl: './messages.component.scss'
 })
 export class MessagesComponent {
-  friends=signal<User[]>([]);
   userService = inject(UserService);
   user = this.userService.getCurrentUser();
-constructor() {
-    const user = this.userService.getCurrentUser();
-    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
+  friends = this.userService.friendList; 
+
+  constructor() {
+    const currentUser = this.user();
+    this.userService.getFriends(currentUser.email);
   }
 }
