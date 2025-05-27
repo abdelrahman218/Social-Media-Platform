@@ -6,7 +6,6 @@ import {routes as userRoutes} from './user/user.routes';
 import { AuthComponent } from './auth/auth.component';
 import { AuthRoutes } from './auth/auth.routes';
 import { NotFoundComponent } from './auth/not-found/not-found.component';
-import { MessagesComponent } from './user/side-feed/messages/messages.component';
 export const routes: Routes = [
     {
         path: '',
@@ -29,10 +28,6 @@ export const routes: Routes = [
     {
         path: '404',
         component: NotFoundComponent
-    },
-    {
-        path: 'direct-message/:id',
-        loadComponent: () => import('./user/side-feed/messages/messages.component').then(m => m.MessagesComponent)
     },
     {
         path: '**',

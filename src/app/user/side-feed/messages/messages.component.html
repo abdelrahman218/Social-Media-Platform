@@ -8,7 +8,7 @@
         <div class="friend-info">
             <img [src]="friend.profilePicURL" alt="Profile Picture" class="friend-avatar">
             <span class="friend-name">{{friend.name}}</span>
-            <button class="message-btn">
+            <button class="message-btn" (click)="openDM(friend)">
                 <i class="fas fa-message"></i> Message
             </button>
         </div>
