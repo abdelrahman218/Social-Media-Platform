@@ -13,10 +13,10 @@
           type="text" 
           formControlName="full_name"
           required>
-        <mat-error *ngIf="signupForm.get('full_name')?.hasError('required')">
+        <mat-error *ngIf="signupForm.get('full_name')?.hasError('required') && signupForm.get('full_name')?.touched">
           Full name is required
         </mat-error>
-        <mat-error *ngIf="signupForm.get('full_name')?.hasError('minlength')">
+        <mat-error *ngIf="signupForm.get('full_name')?.hasError('minlength') && signupForm.get('full_name')?.touched">
           Full name must be at least 3 characters
         </mat-error>
       </mat-form-field>
@@ -28,22 +28,42 @@
           type="email" 
           formControlName="email"
           required>
-        <mat-error *ngIf="signupForm.get('email')?.hasError('required')">
+        <mat-error *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
           Email is required
         </mat-error>
-        <mat-error *ngIf="signupForm.get('email')?.hasError('email')">
+        <mat-error *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
           Please enter a valid email address
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Bio</mat-label>
-        <textarea 
-          matInput
-          formControlName="bio"
-          rows="3"
-          placeholder="Tell us about yourself...">
-        </textarea>
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="signupForm.get('gender')?.hasError('required') && signupForm.get('gender')?.touched">
+          Please select your gender
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Birth</mat-label>
+        <input 
+          matInput 
+          [matDatepicker]="picker" 
+          formControlName="dateOfBirth"
+          [max]="maxDate"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="signupForm.get('dateOfBirth')?.hasError('required') && signupForm.get('dateOfBirth')?.touched">
+          Date of birth is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('dateOfBirth')?.hasError('tooYoung') && signupForm.get('dateOfBirth')?.touched">
+          You must be at least 13 years old to register
+        </mat-error>
       </mat-form-field>
       
       <mat-form-field appearance="outline" class="form-field">
@@ -53,10 +73,10 @@
           type="password" 
           formControlName="password"
           required>
-        <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
+        <mat-error *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
           Password is required
         </mat-error>
-        <mat-error *ngIf="signupForm.get('password')?.hasError('minlength')">
+        <mat-error *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
           Password must be at least 8 characters
         </mat-error>
       </mat-form-field>
@@ -68,10 +88,10 @@
           type="password" 
           formControlName="confirmPassword"
           required>
-        <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('required')">
+        <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched">
           Please confirm your password
         </mat-error>
-        <mat-error *ngIf="signupForm.hasError('passwordMismatch')">
+        <mat-error *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched">
           Passwords do not match
         </mat-error>
       </mat-form-field>

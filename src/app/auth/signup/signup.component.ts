@@ -5,6 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,6 +24,9 @@ import { AuthService } from '../auth.service';
     MatButtonModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule
   ],
   templateUrl: './signup.component.html',
@@ -29,6 +35,8 @@ import { AuthService } from '../auth.service';
 export class SignupComponent {
   signupForm: FormGroup;
   isLoading = false;
+  genders = ['Male', 'Female'];
+  maxDate = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -42,17 +50,30 @@ export class SignupComponent {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
       bio: [''],
+      gender: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required, this.ageValidator(13)]],
       isPrivate: [false]
     }, {
       validators: this.passwordMatchValidator
     });
   }
 
+  ageValidator(minAge: number) {
+    return (control: any) => {
+      const birthDate = new Date(control.value);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      
+      return age >= minAge ? null : { tooYoung: true };
+    };
+  }
+
   onSubmit() {
-    console.log('Form submitted');
-    console.log('Form valid:', this.signupForm.valid);
-    console.log('Form values:', this.signupForm.value);
-    
     if (this.signupForm.valid) {
       this.isLoading = true;
       const signupData = {
@@ -60,6 +81,8 @@ export class SignupComponent {
         full_name: this.signupForm.value.full_name,
         password: this.signupForm.value.password,
         bio: this.signupForm.value.bio,
+        gender: this.signupForm.value.gender,
+        dateOfBirth: this.signupForm.value.dateOfBirth,
         isPrivate: this.signupForm.value.isPrivate
       };
 
@@ -67,8 +90,6 @@ export class SignupComponent {
 
       this.authService.signup(signupData).subscribe({
         next: (response) => {
-          console.log('Signup successful:', response);
-          // Store the token in localStorage
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response));
           
@@ -81,7 +102,6 @@ export class SignupComponent {
           this.router.navigate(['/auth/login']);
         },
         error: (error) => {
-          console.error('Signup error:', error);
           this.isLoading = false;
           this.snackBar.open(
             error.error?.message || 'An error occurred during signup. Please try again.',
@@ -94,18 +114,11 @@ export class SignupComponent {
           );
         },
         complete: () => {
-          console.log('Signup request completed');
           this.isLoading = false;
         }
       });
     } else {
-      console.log('Form validation errors:', this.signupForm.errors);
-      Object.keys(this.signupForm.controls).forEach(key => {
-        const control = this.signupForm.get(key);
-        if (control?.errors) {
-          console.log(`${key} errors:`, control.errors);
-        }
-      });
+      this.signupForm.markAllAsTouched();
     }
   }
 

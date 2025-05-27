@@ -1,6 +1,6 @@
 import { Component,input } from '@angular/core';
 import { User } from '../../app.model';
-import {RouterLink} from '@angular/router';
+import {RouterLink, Router} from '@angular/router';
 @Component({
   selector: 'app-side-feed',
   imports: [RouterLink],
@@ -9,4 +9,10 @@ import {RouterLink} from '@angular/router';
 })
 export class SideFeedComponent {
 user = input.required<User>();
+constructor(private router: Router) {}
+logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  this.router.navigate(['/']);
+}
 }

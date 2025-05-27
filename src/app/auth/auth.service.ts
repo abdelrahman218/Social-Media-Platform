@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -10,6 +10,8 @@ export interface SignupRequest {
   bio?: string;
   profile_picture_name?: string;
   isPrivate: boolean;
+  gender?: string;
+  dateOfBirth?: Date;
 }
 
 export interface SignupResponse {
@@ -19,6 +21,8 @@ export interface SignupResponse {
   profile_picture_name?: string;
   isPrivate: boolean;
   token: string;
+  gender?: string;
+  dateOfBirth?: Date;
 }
 
 export interface LoginRequest {
@@ -33,6 +37,8 @@ export interface LoginResponse {
   profile_picture_name?: string;
   isPrivate: boolean;
   token: string;
+  gender?: string;
+  dateOfBirth?: Date;
 }
 
 @Injectable({
@@ -50,10 +56,8 @@ export class AuthService {
     let errorMessage = 'An error occurred';
     
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = error.error.message;
     } else {
-      // Server-side error
       errorMessage = error.error?.message || `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     
@@ -62,7 +66,7 @@ export class AuthService {
 
   signup(signupData: SignupRequest): Observable<SignupResponse> {
     console.log('Creating signup request with data:', signupData);
-    return this.http.post<SignupResponse>(`${this.apiUrl}/users/signup`, signupData).pipe(
+    return this.http.post<SignupResponse>(`${this.apiUrl}/user/signup`, signupData).pipe(
       tap({
         next: (response) => console.log('Signup response:', response),
         error: (error) => console.error('Signup error:', error)
@@ -74,7 +78,7 @@ export class AuthService {
   login(email: string, password: string): Observable<LoginResponse> {
     console.log('Creating login request with data:', email, password);
     const loginData: LoginRequest = { email, password };
-    return this.http.post<LoginResponse>(`${this.apiUrl}/users/login`, loginData).pipe(
+    return this.http.post<LoginResponse>(`${this.apiUrl}/user/login`, loginData).pipe(
       tap({
         next: (response) => console.log('Login response:', response),
         error: (error) => console.error('Login error:', error)
