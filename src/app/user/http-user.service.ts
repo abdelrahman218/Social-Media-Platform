@@ -28,4 +28,16 @@ export class HttpUserService {
             map((response: any[]) => this.backendAdapter.userAdapter(response))
         );
     }
+
+    getUserByEmail(email: string): Observable<User> {
+        const params = new HttpParams().set('email', email);
+        return this.http.get<any>(`${this.apiUrl}/getUser`, { params }).pipe(
+            map((response: any) => {
+                if (!response) {
+                    throw new Error('User not found');
+                }
+                return this.backendAdapter.userAdapter([response])[0];
+            })
+        );
+    }
 }

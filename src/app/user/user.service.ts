@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Friend, User, UserEssential } from '../app.model';
 import { dummyUsers } from './dummy-users';
 import { HttpUserService } from './http-user.service';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -50,11 +51,13 @@ export class UserService {
     isFriend(id: number) {
         return this.currentUser().friendId?.includes(id) || false;
     }
-  getFriends(email: string) {
-    this.userHttp.getFriends(email).subscribe((friends: User[]) => {
-      this.friendList.set(friends);
-      console.log('Friends loaded:', friends);
-    });
+  getFriends(email: string): Observable<User[]> {
+    return this.userHttp.getFriends(email).pipe(
+      tap((friends: User[]) => {
+        this.friendList.set(friends);
+        console.log('Friends loaded:', friends);
+      })
+    );
   }
 
   getUserByEmail(email: string): User | undefined {

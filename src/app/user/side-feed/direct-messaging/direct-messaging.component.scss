@@ -1,6 +1,6 @@
 @use '../../../../color-pallete.scss' as CP;
 
-.dm-container { 
+.dm-container {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -44,38 +44,38 @@
   flex-direction: column;
   gap: 12px;
   background-color: CP.$Ternary-color;
-}
 
-.message {
-  max-width: 70%;
-  padding: 8px 12px;
-  border-radius: 12px;
-  position: relative;
+  .message {
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 12px;
+    position: relative;
 
-  &.message-sent {
-    align-self: flex-end;
-    background-color: CP.$Primary-color;
-    color: CP.$Ternary-color;
-    border-bottom-right-radius: 4px;
+    &.message-sent {
+      align-self: flex-end;
+      background-color: CP.$Primary-color;
+      color: CP.$Ternary-color;
+      border-bottom-right-radius: 4px;
+    }
+
+    &.message-received {
+      align-self: flex-start;
+      background-color: CP.$Secondary-color;
+      color: CP.$Ternary-color;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message-content {
+      margin-bottom: 4px;
+      word-wrap: break-word;
+    }
+
+    .message-timestamp {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      text-align: right;
+    }
   }
-
-  &.message-received {
-    align-self: flex-start;
-    background-color: CP.$Secondary-color;
-    color: CP.$Ternary-color;
-    border-bottom-left-radius: 4px;
-  }
-}
-
-.message-content {
-  margin-bottom: 4px;
-  word-wrap: break-word;
-}
-
-.message-timestamp {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  text-align: right;
 }
 
 .message-input {

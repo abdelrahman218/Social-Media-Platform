@@ -33,7 +33,7 @@ export const routes: Routes=[
         path:'messages',
         component:MessagesComponent
     },{
-        path:'direct-messages/:id',
+        path:'direct-messages/:email',
         component:DirectMessagingComponent
     },{
         path:'friends',
