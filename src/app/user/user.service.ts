@@ -8,28 +8,39 @@ import { HttpUserService } from './http-user.service';
 })
 export class UserService {
     private users = signal<User[]>(dummyUsers);
-    private currentUser = signal<User>(dummyUsers[8]);
+    private currentUser = signal<User>(this.loadUserFromStorage() || dummyUsers[8]);
     private userHttp = inject(HttpUserService);
     friendList = signal<User[]>([]);
- 
+
+    private loadUserFromStorage(): User | null {
+        const stored = localStorage.getItem('user');
+        if (!stored) return null;
+
+        try {
+            const user = JSON.parse(stored);
+            // optionally validate shape
+            return user;
+        } catch (e) {
+            console.error('Failed to parse stored user:', e);
+            return null;
+        }
+    }
 
     getAllUsers() {
+        this.userHttp.getUsers().subscribe((users: User[]) => {
+            this.users.set(users);
+        });
         return this.users;
     }
 
     getCurrentUser() {
         return this.currentUser;
     }
-
-    login(email: string, password: string) {
-        const user = this.users().find(u => u.email === email);
-        if (user) {
-            this.currentUser.set(user);
-            return true;
-        }
-        return false;
+    setCurrentUser(user: User) {
+        this.currentUser.set(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('Current user set to:', user);
     }
-
 
     register(user: User) {
         if (this.users().find(u => u.email === user.email)) {
@@ -47,14 +58,24 @@ export class UserService {
     getUserById(id: number) {
         return this.users().find(user => user.id === id);
     }
-    isFriend(id: number) {
-        return this.currentUser().friendId?.includes(id) || false;
+    isFriendSignal = signal<boolean>(false);
+
+    checkIfFriend(email: string) {
+        this.userHttp.getFriends(this.currentUser().email).subscribe((friends: User[]) => {
+            const isFriend = friends.some(friend => friend.email === email);
+            this.isFriendSignal.set(isFriend);
+        });
     }
-  getFriends(email: string) {
-    this.userHttp.getFriends(email).subscribe((friends: User[]) => {
-      this.friendList.set(friends);
-      console.log('Friends loaded:', friends);
-    });
-  }
+
+    getFriends(email: string) {
+        this.userHttp.getFriends(email).subscribe((friends: User[]) => {
+            this.friendList.set(friends);
+            console.log('Friends loaded:', friends);
+        });
+    }
+    getUserByEmail(email: string) {
+        const user = this.users().find(u => u.email === email);
+        return user;
+    }
 
 }

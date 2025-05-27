@@ -16,8 +16,8 @@ export class MessagesComponent {
   friends = this.userService.friendList; 
   
   constructor() {
-    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
     const user = this.userService.getCurrentUser();
+    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
     const currentUser = this.user();
     this.userService.getFriends(currentUser.email);
   }

@@ -14,7 +14,9 @@ export class HttpUserService {
     private http = inject(HttpClient);
 
     getUsers(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.apiUrl}/getAllUsers`);
+        return this.http.get<User[]>(`${this.apiUrl}`).pipe(
+            map((response: any[]) => this.backendAdapter.userAdapter(response))
+        );
     }
 
     updateUser(email: string, user: Partial<User>): Observable<User> {

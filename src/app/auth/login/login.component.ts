@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,9 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {UserService} from '../../user/user.service';
+import { BackendAdapter } from '../../BackendAdapter/BackendAdapter';
+import { SpringBootBackendAdapter } from '../../BackendAdapter/SpringBootBackendAdapter';
 
 @Component({
   selector: 'app-login',
@@ -30,12 +33,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  private backendAdapter: BackendAdapter = inject(SpringBootBackendAdapter);
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService:UserService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -56,6 +61,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response));
           this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+          const user = this.backendAdapter.userAdapter([response]);
+          this.userService.setCurrentUser(user[0]);
           this.router.navigate(['/feed']);
         },
         error: (error) => {

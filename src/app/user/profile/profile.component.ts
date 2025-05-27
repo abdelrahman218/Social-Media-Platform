@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserPostsComponent } from './user-posts/user-posts.component'; 
+import { UserPostsComponent } from './user-posts/user-posts.component';
 import { UserService } from '../user.service';
 import { User } from '../../app.model';
 
@@ -10,28 +10,56 @@ import { User } from '../../app.model';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
+
 export class ProfileComponent {
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
-  Id = Number(this.route.snapshot.paramMap.get('id')) || 0;
-  user = signal<User>(this.userService.getCurrentUser()());
-  ngOnInit() {
-    this.user.set(this.userService.getUserById(this.Id) || {
-      id:0,
-      name: '',
-      email: '',
-      bio: '',
-      profilePicURL: '',
-      gender: 'Male',
-      coverPhoto: ''
+  
+  email = this.route.snapshot.paramMap.get('email') || '';
+  
+  user = signal<User>(this.userService.getUserByEmail(this.email) || {
+    id: 0,
+    name: '',
+    email: '',
+    bio: '',
+    profilePicURL: '',
+    gender: 'Male',
+    coverPhoto: ''
+  });
+  
+   constructor() {
+    // Initial user lookup
+    effect(() => {
+      console.log('[Effect] Looking up user by email:', this.email);
+      const found = this.userService.getUserByEmail(this.email);
+      this.user.set(found || {
+        id: 0,
+        name: '',
+        email: '',
+        bio: '',
+        profilePicURL: '',
+        gender: 'Male',
+        coverPhoto: ''
+      });
     });
-    this.userService.getFriends(this.user().email);
-  }
-  isOwnProfile(): boolean {
-    return this.Id === this.userService.getCurrentUser()().id;
+
+    // Separate friends fetch that doesn't trigger user updates
+    effect(() => {
+      const userEmail = this.user().email;
+      if (userEmail) {
+        console.log('[Effect] Fetching friends for:', userEmail);
+        this.userService.getFriends(userEmail);
+      }
+    }, { allowSignalWrites: false });
   }
 
+  isOwnProfile(): boolean {
+    return this.email === this.userService.getCurrentUser()().email;
+  }
+  
   isFriend(): boolean {
-    return this.userService.isFriend(this.Id);
+    this.userService.checkIfFriend(this.email);
+    return this.userService.isFriendSignal();
   }
 }
+

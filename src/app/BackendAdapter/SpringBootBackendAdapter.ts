@@ -68,19 +68,32 @@ export class SpringBootBackendAdapter implements BackendAdapter {
 
         return fd;
     }
+
     userAdapter(httpUser: any): User[] {
-        return httpUser.flatMap((response: any): User => {
-             return {
-            profilePicURL: response.profile_picture_name,
-            name: response.full_name,
-            email: response.email,
-            bio: response.bio,
-            id: response.userId,
-            gender: response.gender,
-        }
-    });
+        return httpUser.map((response: any, index: number): User => {
+            return {
+                profilePicURL: response.profile_picture_name,
+                name: response.full_name,
+                email: response.email,
+                bio: response.bio,
+                id: this.generateUserId(response.email, index),
+                gender: response.gender,
+            }
+        });
     }
-    backendEditPostAdapter(postId: number, postText: string, images: FileList | null | undefined,userEmail:string): FormData {
+
+    private generateUserId(email: string, fallbackIndex: number): number {
+        if (!email) return fallbackIndex + 1000;
+
+        let hash = 0;
+        for (let i = 0; i < email.length; i++) {
+            const char = email.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; 
+        }
+        return Math.abs(hash) + 10000;
+    }
+    backendEditPostAdapter(postId: number, postText: string, images: FileList | null | undefined, userEmail: string): FormData {
         const fd = new FormData();
 
         for (let index = 0; index < (images?.length || 0); index++) {
@@ -89,7 +102,7 @@ export class SpringBootBackendAdapter implements BackendAdapter {
 
         fd.set("postId", postId.toString());
         fd.set("textContent", postText);
-        fd.set("userEmail", userEmail); 
+        fd.set("userEmail", userEmail);
         return fd;
     }
 }

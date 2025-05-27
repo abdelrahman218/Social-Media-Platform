@@ -15,6 +15,10 @@ export class FriendsComponent {
 
   constructor() {
     const currentUser = this.user();
+    if (!currentUser) {
+      console.error('No current user found');
+      return;
+    }
     this.userService.getFriends(currentUser.email);
   }
   removeFriend(friendId: number) {

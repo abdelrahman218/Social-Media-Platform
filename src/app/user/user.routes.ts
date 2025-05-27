@@ -10,33 +10,33 @@ import { DirectMessagingComponent } from "./side-feed/direct-messaging/direct-me
 import { FriendsComponent } from "./side-feed/friends/friends.component";
 import { SettingsComponent } from "./side-feed/settings/settings.component";
 const ProfileResolver: ResolveFn<User> = (route) => {
-    return inject(UserService).getUserById(Number(route.paramMap.get('id'))!) || 
-                 new RedirectCommand(inject(Router).parseUrl('/404'));
+    return inject(UserService).getUserByEmail(route.paramMap.get('email')!) ||
+        new RedirectCommand(inject(Router).parseUrl('/404'));
 };
-export const routes: Routes=[ 
+export const routes: Routes = [
     {
         path: 'profile'
-        ,children: [{
+        , children: [{
             path: '',
-            component:ProfileComponent,
+            component: ProfileComponent,
         },
         {
-            path: ':id',
+            path: ':email',
             component: ProfileComponent,
-            resolve: {User: ProfileResolver},
+            resolve: { User: ProfileResolver },
         },
-    ]
-    },{
-        path:'settings',
-        component:SettingsComponent
-    },{
-        path:'messages',
-        component:MessagesComponent
-    },{
-        path:'direct-messages/:id',
-        component:DirectMessagingComponent
-    },{
-        path:'friends',
-        component:FriendsComponent
+        ]
+    }, {
+        path: 'settings',
+        component: SettingsComponent
+    }, {
+        path: 'messages',
+        component: MessagesComponent
+    }, {
+        path: 'direct-messages/:id',
+        component: DirectMessagingComponent
+    }, {
+        path: 'friends',
+        component: FriendsComponent
     }
 ];
