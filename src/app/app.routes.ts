@@ -6,19 +6,25 @@ import {routes as userRoutes} from './user/user.routes';
 import { AuthComponent } from './auth/auth.component';
 import { AuthRoutes } from './auth/auth.routes';
 import { NotFoundComponent } from './auth/not-found/not-found.component';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { NoAuthGuard } from './auth/guards/no-auth.guard';
+
 export const routes: Routes = [
     {
         path: '',
-        component: LandingPageComponent
+        component: LandingPageComponent,
+        canActivate: [NoAuthGuard]
     },
     {
         path: 'feed',
-        component: FeedComponent
+        component: FeedComponent,
+        canActivate: [AuthGuard]
     },
     {
         path:'user',
         component: UserComponent,
-        children:userRoutes
+        children: userRoutes,
+        canActivate: [AuthGuard]
     },
     {
         path: 'auth',

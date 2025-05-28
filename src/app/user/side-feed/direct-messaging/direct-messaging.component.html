@@ -4,7 +4,7 @@
 <div class="dm-container">
   <div class="dm-header">
     <div class="user-info" *ngIf="foundFriend">
-      <img [src]="foundFriend.profilePicURL" [alt]="foundFriend.name" class="profile-picture">
+      <img [src]="'http://localhost:8080/'+foundFriend.profilePicURL" [alt]="foundFriend.name" class="profile-picture">
       <h2>{{ foundFriend.name }}</h2>
     </div>
   </div>
