@@ -8,7 +8,8 @@ export const dummyUsers: User[] = [
         profilePicURL: "https://randomuser.me/api/portraits/men/1.jpg",
         gender: 'Male',
         id: 0,
-        friendId: [1, 2, 3]
+        friendId: [1, 2, 3],
+        password: "default123"
     },
     {
         name: "Sarah Chen",
@@ -16,7 +17,8 @@ export const dummyUsers: User[] = [
         bio: "Digital artist and photographer",
         profilePicURL: "https://randomuser.me/api/portraits/women/2.jpg",
         gender: 'Female',
-        id: 1
+        id: 1,
+        password: "default123"
     },
     {
         name: "Marcus Williams",
@@ -24,7 +26,8 @@ export const dummyUsers: User[] = [
         bio: "Sports fan and fitness enthusiast",
         profilePicURL: "https://randomuser.me/api/portraits/men/3.jpg",
         gender: 'Male',
-        id: 2
+        id: 2,
+        password: "default123"
     },
     {
         name: "Emma Rodriguez",
@@ -32,7 +35,8 @@ export const dummyUsers: User[] = [
         bio: "Travel blogger and foodie",
         profilePicURL: "https://randomuser.me/api/portraits/women/4.jpg",
         gender: 'Female',
-        id: 3
+        id: 3,
+        password: "default123"
     },
     {
         name: "David Kim",
@@ -40,7 +44,8 @@ export const dummyUsers: User[] = [
         bio: "Software developer and gamer",
         profilePicURL: "https://randomuser.me/api/portraits/men/5.jpg",
         gender: 'Male',
-        id: 4
+        id: 4,
+        password: "default123"
     },
     {
         name: "Lisa Patel",
@@ -48,7 +53,8 @@ export const dummyUsers: User[] = [
         bio: "Environmental scientist and nature lover",
         profilePicURL: "https://randomuser.me/api/portraits/women/6.jpg",
         gender: 'Female',
-        id: 5
+        id: 5,
+        password: "default123"
     },
     {
         name: "James Wilson",
@@ -56,7 +62,8 @@ export const dummyUsers: User[] = [
         bio: "Music producer and DJ",
         profilePicURL: "https://randomuser.me/api/portraits/men/7.jpg",
         gender: 'Male',
-        id: 6
+        id: 6,
+        password: "default123"
     },
     {
         name: "Maria Garcia",
@@ -64,7 +71,8 @@ export const dummyUsers: User[] = [
         bio: "Fashion designer and artist",
         profilePicURL: "https://randomuser.me/api/portraits/women/8.jpg",
         gender: 'Female',
-        id: 7
+        id: 7,
+        password: "default123"
     },
     {
         name: "Chris Thompson",
@@ -72,7 +80,8 @@ export const dummyUsers: User[] = [
         bio: "Startup founder and tech innovator",
         profilePicURL: "https://randomuser.me/api/portraits/men/9.jpg",
         gender: 'Male',
-        id: 8
+        id: 8,
+        password: "default123"
     },
     {
         name: "Sophie Lee",
@@ -80,6 +89,7 @@ export const dummyUsers: User[] = [
         bio: "Book lover and aspiring writer",
         profilePicURL: "https://randomuser.me/api/portraits/women/10.jpg",
         gender: 'Female',
-        id: 9
+        id: 9,
+        password: "default123"
     }
 ];

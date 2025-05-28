@@ -36,6 +36,7 @@ export class CommentsSectionComponent {
         name: this.userService.getCurrentUser()()?.name ?? '',
         email: this.userService.getCurrentUser()()?.email ?? '',
         profilePicURL: this.userService.getCurrentUser()()?.profilePicURL ?? '',
+        password: this.userService.getCurrentUser()()?.password ?? '',
       },
       dateCreated: new Date(),
     };

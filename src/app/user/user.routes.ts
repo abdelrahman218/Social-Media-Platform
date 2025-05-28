@@ -9,9 +9,14 @@ import { MessagesComponent } from "./side-feed/messages/messages.component";
 import { DirectMessagingComponent } from "./side-feed/direct-messaging/direct-messaging.component";
 import { FriendsComponent } from "./side-feed/friends/friends.component";
 import { SettingsComponent } from "./side-feed/settings/settings.component";
+import { map } from "rxjs";
 const ProfileResolver: ResolveFn<User> = (route) => {
-    return inject(UserService).getUserByEmail(route.paramMap.get('email')!) ||
-        new RedirectCommand(inject(Router).parseUrl('/404'));
+    const userService = inject(UserService);
+    const router = inject(Router);
+    const email = route.paramMap.get('email')!;
+    return userService.getUserByEmail(email).pipe(
+        map(user => user ? user : new RedirectCommand(router.parseUrl('/404')))
+    );
 };
 export const routes: Routes = [
     {
