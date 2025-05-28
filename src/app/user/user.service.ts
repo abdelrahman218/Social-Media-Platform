@@ -36,9 +36,13 @@ export class UserService {
     getCurrentUser() {
         return this.currentUser;
     }
-    setCurrentUser(user: User) {
+    setCurrentUser(user: User | null) {
         this.currentUser.set(user);
-        localStorage.setItem('user', JSON.stringify(user));
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
+        } else {
+            localStorage.removeItem('user');
+        }
     }
 
     register(user: User) {

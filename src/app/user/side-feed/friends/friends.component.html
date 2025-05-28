@@ -4,25 +4,22 @@
 <!-- Friend list -->
 <div class="friend-list">
     <h3>Friends List</h3>
-    <!-- This will be repeated for each friend using *ngFor -->
     @for (friend of friends(); track friend) {
     <div class="friends-container">
         <div class="friend-info">
             <img [src]="'http://localhost:8080/'+friend.profilePicURL" alt="Profile Picture" class="friend-avatar">
             <span class="friend-name">{{friend.name}}</span>
-            <button class="message-btn">
+            <button class="message-btn" [routerLink]="['/user/direct-messages', friend.email]">
                 <i class="fas fa-message"></i> Message
             </button>
-            <button class="message-btn" (click)="removeFriend(friend.id)">
+            <button class="message-btn">
                 <i class="fas fa-user-minus"></i> Remove
             </button>
         </div>
     </div>
     }@empty{
-
     <p class="noFriendsMessage text">
-        You have no friends
+        You have no friends yet. Add friends to connect with them!
     </p>
     }
-
 </div>

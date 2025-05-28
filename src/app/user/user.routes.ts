@@ -20,6 +20,11 @@ const ProfileResolver: ResolveFn<User> = (route) => {
 };
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'settings',
+        pathMatch: 'full'
+    },
+    {
         path: 'profile'
         , children: [{
             path: '',
