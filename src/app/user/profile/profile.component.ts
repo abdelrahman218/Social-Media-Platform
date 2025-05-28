@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
 
   isOwnProfile(): boolean {
     const currentUser = this.userService.getCurrentUser()();
+    console.log(currentUser);
     return currentUser ? this.email === currentUser.email : false;
   }
   
@@ -52,6 +53,7 @@ export class ProfileComponent implements OnInit {
     this.userService.togglePrivateMode(email).subscribe({
       next: () => {
         console.log('Private mode toggled successfully');
+        window.location.reload();
       },
       error: (error) => {
         console.error('Error toggling private mode:', error);

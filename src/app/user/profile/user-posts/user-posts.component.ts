@@ -8,7 +8,6 @@ import { NewPostFormComponent } from '../../../feed/new-post-form/new-post-form.
 import { UserService } from '../../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../app.model';
-
 @Component({
   selector: 'app-user-posts',
   imports: [PostComponent, MatIconModule, MatButtonModule],
@@ -40,7 +39,6 @@ export class UserPostsComponent implements OnInit {
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);
   }
-
   isOwnProfile(): boolean {
     return this.currentUser()?.email === this.profileUser?.email;
   }
