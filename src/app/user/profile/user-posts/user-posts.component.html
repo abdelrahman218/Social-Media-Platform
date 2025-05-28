@@ -1,14 +1,19 @@
-<div>
-    <button mat-button (click)="openNewPostDialog()" color="primary" class="text">
-      <span class="material-icons"> add </span>
-      <p>New Post</p>
-    </button>
-  </div>
-@for (post of posts(); track $index) {
-    <app-post [post]="post" />
-    }
-    @empty {
-      <p class="noFriendsMessage text">
-       You have no posts yet. Please create a new post to share with your friends.
+<div class="posts-container">
+  @if (isOwnProfile()) {
+    <div class="new-post-container">
+      <button mat-button (click)="openNewPostDialog()" color="primary" class="text">
+        <span class="material-icons">add</span>
+        <p>New Post</p>
+      </button>
+    </div>
+  }
+  <div class="posts-list">
+    @for (post of posts(); track post.id) {
+      <app-post [post]="post"></app-post>
+    } @empty {
+      <p class="no-posts-message">
+        No posts yet
       </p>
     }
+  </div>
+</div>

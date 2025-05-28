@@ -8,8 +8,12 @@
       <h2>Page Not Found</h2>
       <p>Oops! The page you're looking for doesn't exist or has been moved.</p>
       <div class="not-found-actions">
-        <a href="/" class="home-button">Back to Home</a>
-        <a href="/auth/login" class="login-button">Go to Login</a>
+        @if (isLoggedIn()) {
+          <a [routerLink]="['/feed']" class="login-button">Back to Feed</a>
+        } @else {
+          <a [routerLink]="['/']" class="home-button">Back to Home</a>
+          <a [routerLink]="['/auth/login']" class="login-button">Go to Login</a>
+        }
       </div>
     </div>
   </div>
