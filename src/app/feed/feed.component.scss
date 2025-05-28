@@ -4,8 +4,9 @@
   display: grid;
   grid-template-columns: 100%;
   row-gap: 10px;
-  padding: 10px 1vw;
-  width: 98vw;
+  padding: 20px 1vw;
+  width: 100vw;
+  height: auto;
   min-height: 10vh;
   max-height: 150vh;
   overflow-y: scroll;
@@ -14,11 +15,11 @@
 div {
   display: flex;
   align-items: flex-end;
-  max-height: 8vh;
+  max-height: auto;
 }
 
 div button {
-  margin-left: auto;
+  margin:0 auto;
   border-radius: 5px;
 }
 

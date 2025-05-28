@@ -1,0 +1,68 @@
+<html>
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="cover-photo">
+            <div
+                style="margin-top:10vh; width:100%; height: 70vh; background: linear-gradient(135deg, #000 0%, #434343 100%); position: relative;">
+                <img style="display: block; width: 100%; height: 100%; object-fit: cover;"
+                    onerror="this.style.display='none';">
+            </div>
+        </div>
+        <div class="profile-info">
+            <img class="profile-picture" [src]="'http://localhost:8080/'+user().profilePicURL" alt="Profile Picture">
+            <h1 class="username">{{user().name}}</h1>
+            @if(isOwnProfile()){
+            <p class="bio">{{user().bio}}</p>
+            }
+            @else if(!user().isPrivate){
+            <p class="bio">{{user().bio}}</p>
+            }
+        </div>
+    </div>
+    @if(isOwnProfile() || !user().isPrivate){
+        <div class="profile-stats">
+            <div class="stat">
+                <span class="count">0</span>
+                <span class="label">Posts</span>
+            </div>
+            <div class="stat">
+                <span class="count">0</span>
+                <span class="label">Followers</span>
+            </div>
+            <div class="stat">
+                <span class="count">0</span>
+                <span class="label">Following</span>
+            </div>
+        </div>
+    }
+    <div class="profile-content">
+        @if( isOwnProfile()){
+        <button class="edit-profile" [routerLink]="['/user/settings']">Edit Profile</button>
+        @if(user().isPrivate){
+        <button class="edit-profile" (click)="togglePrivateMode(user().email)">make private</button>
+        }@if(!user().isPrivate){
+        <button class="edit-profile" (click)="togglePrivateMode(user().email)">make public</button>
+        }
+        }
+        @else if(!isOwnProfile()){
+        <div>
+            @if(isFriend()){
+            <button class="edit-profile">Friends</button>
+            <button class="edit-profile">Remove Friend</button>
+            }
+            @else if(!isFriend()){
+            <button class="edit-profile">Add Friend</button>
+            }
+        </div>
+        }
+    </div>
+</div>
+@if(isOwnProfile() || !user().isPrivate){
+<app-user-posts></app-user-posts>
+}@else{
+<p class="noFriendsMessage text">
+    This account is private
+</p>
+}
+
+</html>

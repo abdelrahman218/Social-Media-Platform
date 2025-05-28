@@ -1,0 +1,118 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="signup-header">
+      <h1>Create Account</h1>
+      <p>Join our community and start sharing</p>
+    </div>
+    
+    <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Full Name</mat-label>
+        <input 
+          matInput
+          type="text" 
+          formControlName="full_name"
+          required>
+        <mat-error *ngIf="signupForm.get('full_name')?.hasError('required') && signupForm.get('full_name')?.touched">
+          Full name is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('full_name')?.hasError('minlength') && signupForm.get('full_name')?.touched">
+          Full name must be at least 3 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input 
+          matInput
+          type="email" 
+          formControlName="email"
+          required>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="signupForm.get('gender')?.hasError('required') && signupForm.get('gender')?.touched">
+          Please select your gender
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Birth</mat-label>
+        <input 
+          matInput 
+          [matDatepicker]="picker" 
+          formControlName="dateOfBirth"
+          [max]="maxDate"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="signupForm.get('dateOfBirth')?.hasError('required') && signupForm.get('dateOfBirth')?.touched">
+          Date of birth is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('dateOfBirth')?.hasError('tooYoung') && signupForm.get('dateOfBirth')?.touched">
+          You must be at least 13 years old to register
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Password</mat-label>
+        <input 
+          matInput
+          type="password" 
+          formControlName="password"
+          required>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
+          Password must be at least 8 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Confirm Password</mat-label>
+        <input 
+          matInput
+          type="password" 
+          formControlName="confirmPassword"
+          required>
+        <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched">
+          Please confirm your password
+        </mat-error>
+        <mat-error *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="isPrivate" class="privacy-checkbox">
+        Make my profile private
+      </mat-checkbox>
+      
+      <button 
+        type="submit" 
+        mat-raised-button
+        color="primary"
+        class="signup-button"
+        [disabled]="!signupForm.valid || isLoading">
+        <span *ngIf="!isLoading">Sign Up</span>
+        <span *ngIf="isLoading">Creating Account...</span>
+      </button>
+    </form>
+    
+    <div class="signup-footer">
+      <p>Already have an account? <a href="/auth/login">Log In</a></p>
+    </div>
+  </div>
+</div>

@@ -8,8 +8,11 @@
 .post {
   display: block;
   border-radius: 20px;
+  background-color: var(--mat-surface);
   box-shadow: CP.$Secondary-color 0px 0px 5px;
   z-index: 20;
+  max-width: 47vw;
+  margin: 0 auto;
 }
 
 .postedImageContainer {
@@ -23,15 +26,15 @@
 
 .postInfo {
   display: grid;
-  width: 17%;
+  width: 37%;
   position: absolute;
   right: 5px;
   grid-template-columns: 50% 50%;
-  font-size: 1.2em;
   text-align: center;
   color: #3f422ec4;
 }
 .text {
+  color: var(--mat-on-surface);
   font-size: 1.5em;
 }
 

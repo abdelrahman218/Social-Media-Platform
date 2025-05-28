@@ -1,0 +1,50 @@
+@if (user) {
+<app-side-feed [user]="user"></app-side-feed>
+}
+<div class="settings-container">
+    <h2>Account Settings</h2>
+    @if(user){
+    <form class="settings-form">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="user.name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control"  [(ngModel)]="user.email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-input-container">
+                <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control"    [(ngModel)]="user.password" name="password" required>
+                <i class="fa" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword" (click)="showPassword = !showPassword"></i>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-input-container">
+                <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" class="form-control"  [(ngModel)]="confirmPassword" name="confirmPassword" required>
+                <i class="fa" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword" (click)="showConfirmPassword = !showConfirmPassword"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="profilePic">Profile Picture</label>
+            <input type="file" id="profilePic" class="form-control" (change)="onProfilePicSelected($event)">
+            @if (user.profilePicURL) {
+            <div>
+                <img [src]="'http://localhost:8080/'+user.profilePicURL" alt="Profile Picture" class="profile-pic-preview" style="max-width: 100px; max-height: 100px; margin-top: 10px;">
+            </div>
+        }
+        </div>
+
+        <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea id="bio" class="form-control" [(ngModel)]="user.bio" name="bio" rows="3" maxlength="250"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
+    </form>
+}
+</div>

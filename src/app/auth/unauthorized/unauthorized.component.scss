@@ -1,0 +1,90 @@
+@import '../../../color-pallete.scss';
+
+.unauthorized-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, $Primary-color 0%, $Secondary-color 100%);
+  padding: 20px;
+}
+
+.unauthorized-card {
+  background: $Ternary-color;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.unauthorized-icon {
+  margin-bottom: 20px;
+  
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: $Primary-color;
+    animation: shake 1s ease-in-out;
+  }
+}
+
+.unauthorized-content {
+  h1 {
+    color: $Primary-color;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: $Secondary-color;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+}
+
+.unauthorized-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  a {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &.login-button {
+      background: $Primary-color;
+      color: $Ternary-color;
+
+      &:hover {
+        background: darken($Primary-color, 10%);
+        transform: translateY(-2px);
+      }
+    }
+
+    &.home-button {
+      background: transparent;
+      color: $Primary-color;
+      border: 2px solid $Primary-color;
+
+      &:hover {
+        background: rgba($Primary-color, 0.1);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}

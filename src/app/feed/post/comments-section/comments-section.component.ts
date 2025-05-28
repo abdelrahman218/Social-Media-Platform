@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Comment, Post } from '../../../app.model';
 import { PostsService } from '../../posts.service';
 import { CommentComponent } from "./comment/comment.component";
+import { UserService } from '../../../user/user.service';
 
 @Component({
   selector: 'app-comments-section',
@@ -23,6 +24,7 @@ import { CommentComponent } from "./comment/comment.component";
 })
 export class CommentsSectionComponent {
   private postsService = inject(PostsService);
+  private userService = inject(UserService);
   post = input.required<Post>();
   newComment: string = '';
   
@@ -31,11 +33,10 @@ export class CommentsSectionComponent {
       id: 0,
       text: this.newComment,
       user: {
-        name: 'LoggedInUserName',
-        email: 'LoggedInUserName@gmail.com',
-        bio: 'Logged In User Bio',
-        profilePicURL: 'LoggedInUserProfilePic',
-        gender: 'Male',
+        name: this.userService.getCurrentUser()()?.name ?? '',
+        email: this.userService.getCurrentUser()()?.email ?? '',
+        profilePicURL: this.userService.getCurrentUser()()?.profilePicURL ?? '',
+        password: this.userService.getCurrentUser()()?.password ?? '',
       },
       dateCreated: new Date(),
     };
