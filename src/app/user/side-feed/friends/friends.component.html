@@ -1,4 +1,6 @@
-<app-side-feed [user]="user()"></app-side-feed>
+@if(user){
+<app-side-feed [user]="user"></app-side-feed>
+}
 <!-- Friend list -->
 <div class="friend-list">
     <h3>Friends List</h3>
@@ -6,15 +8,21 @@
     @for (friend of friends(); track friend) {
     <div class="friends-container">
         <div class="friend-info">
-            <img [src]="friend.profilePicURL" alt="Profile Picture" class="friend-avatar">
+            <img [src]="'http://localhost:8080/'+friend.profilePicURL" alt="Profile Picture" class="friend-avatar">
             <span class="friend-name">{{friend.name}}</span>
             <button class="message-btn">
-            <i class="fas fa-message"></i> Message
+                <i class="fas fa-message"></i> Message
             </button>
             <button class="message-btn" (click)="removeFriend(friend.id)">
-            <i class="fas fa-user-minus"></i> Remove
+                <i class="fas fa-user-minus"></i> Remove
             </button>
         </div>
     </div>
+    }@empty{
+
+    <p class="noFriendsMessage text">
+        You have no friends
+    </p>
     }
+
 </div>

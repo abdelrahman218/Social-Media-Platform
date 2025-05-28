@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class MessagesComponent implements OnInit {
   userService = inject(UserService);
   messageService = inject(MessageService);
-   user: User | null = this.userService.getCurrentUser()();
+  user: User | null = this.userService.getCurrentUser()();
   router = inject(Router);
   friends = signal<User[]>([]);
   latestMessages = new Map<string, Message>();

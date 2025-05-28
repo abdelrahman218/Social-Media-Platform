@@ -1,7 +1,7 @@
 export type Gender='Male' | 'Female';
 
 
-export type UserEssential= {profilePicURL: string, name: string, email: string, password?: string}
+export type UserEssential= {profilePicURL: string, name: string, email: string, password: string}
 export type User= UserEssential & {id:number, bio: string, gender: Gender,coverPhoto?:string,friendId?:Number[],isPrivate?:boolean};
 
 export type Comment={id: number, text: string, user: UserEssential, dateCreated: Date};

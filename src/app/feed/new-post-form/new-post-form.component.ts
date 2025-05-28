@@ -78,6 +78,7 @@ export class NewPostFormComponent {
         profilePicURL: this.userServices.getCurrentUser()()?.profilePicURL ?? "",
         name: this.userServices.getCurrentUser()()?.name ?? "",
         email: this.userServices.getCurrentUser()()?.email ?? "",
+        password: this.userServices.getCurrentUser()()?.password ?? ""
       },
       datePosted: new Date(),
       attachedImagesURLs:  imagesURLs || [],

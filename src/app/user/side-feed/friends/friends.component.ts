@@ -10,11 +10,11 @@ import { SideFeedComponent } from '../side-feed.component';
 })
 export class FriendsComponent {
   userService = inject(UserService);
-  user = this.userService.getCurrentUser();
+  user :User | null = this.userService.getCurrentUser()();
   friends = this.userService.friendList; 
 
   constructor() {
-    const currentUser = this.user();
+    const currentUser = this.user;
     if (!currentUser) {
       console.error('No current user found');
       return;

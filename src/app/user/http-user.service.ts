@@ -14,15 +14,18 @@ export class HttpUserService {
     private http = inject(HttpClient);
 
     getUsers(): Observable<User[]> {
-        return this.http.get<User[]>(`${this.apiUrl}`).pipe(
+        return this.http.get<any[]>(`${this.apiUrl}`).pipe(
             map((response: any[]) => this.backendAdapter.userAdapter(response))
         );
     }
 
-    updateUser(email: string, user: Partial<User>): Observable<User> {
-        const params = new HttpParams().set('email', email);
-        return this.http.put<User>(`${this.apiUrl}/updateUser`, user, { params });
+    updateUser(email: string, full_name:string,password:string,images:File | null |undefined ,bio:string): Observable<void> {
+        return this.http.post<void>(
+      this.apiUrl + `/${email}`,
+            this.backendAdapter.editUserAdapter(  full_name, password, images, bio )
+        );
     }
+
 
     getFriends(email: string): Observable<User[]> {
         const params = new HttpParams().set('email', email)
@@ -41,5 +44,9 @@ export class HttpUserService {
                 return this.backendAdapter.userAdapter([response])[0];
             })
         );
+    }
+    togglePrivateMode(email: string): Observable<void> {
+        const params = new HttpParams().set('userEmail', email)
+        return this.http.get<void>(`${this.apiUrl}/togglePrivate`, { params });
     }
 }
