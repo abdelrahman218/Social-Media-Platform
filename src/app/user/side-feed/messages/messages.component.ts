@@ -17,32 +17,47 @@ import { Observable } from 'rxjs';
 export class MessagesComponent implements OnInit {
   userService = inject(UserService);
   messageService = inject(MessageService);
-  user = this.userService.getCurrentUser();
+   user: User | null = this.userService.getCurrentUser()();
   router = inject(Router);
   friends = signal<User[]>([]);
   latestMessages = new Map<string, Message>();
   
   constructor() {
     const user = this.userService.getCurrentUser();
-    this.friends.set(this.userService.getAllUsers()().filter((u) => user().friendId?.includes(u.id)));
-    const currentUser = this.user();
-    this.userService.getFriends(currentUser.email).subscribe((friends: User[]) => {
-      this.friends.set(friends);
-      // Load latest messages for each friend
-      friends.forEach((friend: User) => {
-        this.messageService.getLatestMessage(this.user().email, friend.email)
-          .subscribe({
-            next: (message: Message | null) => {
-              if (message) {
-                this.latestMessages.set(friend.email, message);
-              }
-            },
-            error: (error) => {
-              console.error('Error loading latest message:', error);
-            }
-          });
-      });
-    });
+    this.friends.set(
+      this.userService.getAllUsers()().filter((u) => {
+        const currentUser = user();
+        return currentUser && currentUser.friendId?.includes(u.id);
+      })
+    );
+const currentUser = this.user;
+if (currentUser) {
+  this.userService.getFriends(currentUser.email).subscribe({
+    next: (friendsList: User[]) => {
+      if (Array.isArray(friendsList)) {
+        friendsList.forEach((friend: User) => {
+          const currentUserEmail = this.user?.email;
+          if (currentUserEmail && friend.email) {
+            this.messageService.getLatestMessage(currentUserEmail, friend.email)
+              .subscribe({
+                next: (message: Message | null) => {
+                  if (message) {
+                    this.latestMessages.set(friend.email, message);
+                  }
+                },
+                error: (error) => {
+                  console.error('Error loading latest message:', error);
+                }
+              });
+          }
+        });
+      }
+    },
+    error: (error) => {
+      console.error('Error loading friends list:', error);
+    }
+  });
+}
   }
 
   ngOnInit() {
@@ -65,6 +80,6 @@ export class MessagesComponent implements OnInit {
 
   isMessageFromMe(friend: User): boolean {
     const message = this.latestMessages.get(friend.email);
-    return message?.sender.email === this.user().email;
+    return message?.sender.email === this.user?.email;
   }
 }

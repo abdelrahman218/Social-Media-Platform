@@ -9,7 +9,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class UserService {
     private users = signal<User[]>(dummyUsers);
-    private currentUser = signal<User>(this.loadUserFromStorage() || dummyUsers[8]);
+    private currentUser = signal<User | null>(this.loadUserFromStorage() || null);
     private userHttp = inject(HttpUserService);
     friendList = signal<User[]>([]);
 
@@ -19,7 +19,6 @@ export class UserService {
 
         try {
             const user = JSON.parse(stored);
-            // optionally validate shape
             return user;
         } catch (e) {
             console.error('Failed to parse stored user:', e);
@@ -40,7 +39,6 @@ export class UserService {
     setCurrentUser(user: User) {
         this.currentUser.set(user);
         localStorage.setItem('user', JSON.stringify(user));
-        console.log('Current user set to:', user);
     }
 
     register(user: User) {
@@ -62,33 +60,27 @@ export class UserService {
     isFriendSignal = signal<boolean>(false);
 
     checkIfFriend(email: string) {
-        this.userHttp.getFriends(this.currentUser().email).subscribe((friends: User[]) => {
+        const currentUser = this.currentUser();
+        if (!currentUser || !currentUser.email) {
+            this.isFriendSignal.set(false);
+            return;
+        }
+        this.userHttp.getFriends(currentUser.email).subscribe((friends: User[]) => {
             const isFriend = friends.some(friend => friend.email === email);
             this.isFriendSignal.set(isFriend);
         });
     }
-
-    getFriends(email: string) {
-        this.userHttp.getFriends(email).subscribe((friends: User[]) => {
-            this.friendList.set(friends);
-            console.log('Friends loaded:', friends);
-        });
+    getFriends(email: string): Observable<User[]> {
+        return this.userHttp.getFriends(email).pipe(
+            tap((friends: User[]) => {
+                this.friendList.set(friends);
+                console.log('Friends loaded:', friends);
+            })
+        );
     }
-    getUserByEmail(email: string) {
-        const user = this.users().find(u => u.email === email);
-        return user;
-    }
-  getFriends(email: string): Observable<User[]> {
-    return this.userHttp.getFriends(email).pipe(
-      tap((friends: User[]) => {
-        this.friendList.set(friends);
-        console.log('Friends loaded:', friends);
-      })
-    );
-  }
 
-  getUserByEmail(email: string): User | undefined {
-    return this.users().find(user => user.email === email);
-  }
+    getUserByEmail(email: string): User | undefined {
+        return this.users().find(user => user.email === email);
+    }
 
 }

@@ -75,9 +75,9 @@ export class NewPostFormComponent {
       id: 0,
       text_content: this.newPostFormGroup.value.postTextContent || "",
       postOwner: {
-        profilePicURL: this.userServices.getCurrentUser()().profilePicURL,
-        name: this.userServices.getCurrentUser()().name,
-        email: this.userServices.getCurrentUser()().email,
+        profilePicURL: this.userServices.getCurrentUser()()?.profilePicURL ?? "",
+        name: this.userServices.getCurrentUser()()?.name ?? "",
+        email: this.userServices.getCurrentUser()()?.email ?? "",
       },
       datePosted: new Date(),
       attachedImagesURLs:  imagesURLs || [],

@@ -93,7 +93,8 @@ export class EditPostFormComponent {
     const postId = this.postData.post.id;
     const updatedTextContent = this.newPostFormGroup.value.postTextContent || '';
     const newImages = this.newPostFormGroup.value.images;
-    const email= this.userServices.getCurrentUser()().email;
+    const currentUser = this.userServices.getCurrentUser()();
+    const email = currentUser ? currentUser.email : '';
     this.postsService.editPost(postId, updatedTextContent, newImages,email).subscribe({
       next: () => {
         this.dialogRef.close({ success: true });
