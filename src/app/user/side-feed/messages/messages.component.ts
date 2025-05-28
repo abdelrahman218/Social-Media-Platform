@@ -5,7 +5,6 @@ import { SideFeedComponent } from '../side-feed.component';
 import { Router } from '@angular/router';
 import { MessageService } from '../../../services/message.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-messages',
