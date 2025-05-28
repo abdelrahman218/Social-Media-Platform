@@ -8,6 +8,7 @@ import { NewPostFormComponent } from './new-post-form/new-post-form.component';
 import { SearchComponent } from './search/search.component';
 import { SideFeedComponent } from '../user/side-feed/side-feed.component';
 import { UserService } from '../user/user.service';
+import { User } from '../app.model';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class FeedComponent {
   private postsService = inject(PostsService);
   private dialog = inject(MatDialog);
   private userService = inject(UserService);
-  user = this.userService.getCurrentUser();
+  user: User | null = this.userService.getCurrentUser()();
   posts = this.postsService.userFeedPosts;
   
   openNewPostDialog() {

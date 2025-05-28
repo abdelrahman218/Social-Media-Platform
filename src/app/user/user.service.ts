@@ -110,10 +110,6 @@ export class UserService {
             tap({
                 next: (user: User) => {
                     this.users.update(users => [...users, user]);
-                    if (this.currentUser()?.email === email) {
-                        this.currentUser.set(user);
-                        localStorage.setItem('user', JSON.stringify(user));
-                    }
                 },
                 error: (error) => {
                     console.error('Error fetching user by email:', error);

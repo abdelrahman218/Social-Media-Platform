@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
           this.messageService.showPopup('Login successful!', 'success');
           const user = this.backendAdapter.userAdapter([response]);
           this.userService.setCurrentUser(user[0]);
+          console.log(this.userService.getCurrentUser()());
           this.router.navigate(['/feed']);
         },
         error: (error) => {
