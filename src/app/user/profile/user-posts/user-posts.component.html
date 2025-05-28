@@ -1,14 +1,16 @@
+@if(isOwnProfile()){
 <div>
-    <button mat-button (click)="openNewPostDialog()" color="primary" class="text">
-      <span class="material-icons"> add </span>
-      <p>New Post</p>
-    </button>
-  </div>
+  <button mat-button (click)="openNewPostDialog()" color="primary" class="text">
+    <span class="material-icons"> add </span>
+    <p>New Post</p>
+  </button>
+</div>
+}
 @for (post of posts(); track $index) {
-    <app-post [post]="post" />
-    }
-    @empty {
-      <p class="noFriendsMessage text">
-       You have no posts yet. Please create a new post to share with your friends.
-      </p>
-    }
+<app-post [post]="post" />
+}
+@empty {
+<p class="noFriendsMessage text">
+  You have no posts yet. Please create a new post to share with your friends.
+</p>
+}

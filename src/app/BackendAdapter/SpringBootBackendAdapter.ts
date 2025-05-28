@@ -79,7 +79,8 @@ export class SpringBootBackendAdapter implements BackendAdapter {
                 bio: response.bio,
                 id: this.generateUserId(response.email, index),
                 gender: response.gender,
-                password: response.password
+                password: response.password,
+                isPrivate:response.isPrivate
             }
         });
     }

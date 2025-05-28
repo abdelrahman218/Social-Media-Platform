@@ -1,4 +1,6 @@
-<app-side-feed [user]="user()"></app-side-feed>
+@if(user){
+<app-side-feed [user]="user"></app-side-feed>
+}
 <div>
 <app-search></app-search>
 </div>

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NewPostFormComponent } from '../../../feed/new-post-form/new-post-form.component';
 import { UserService } from '../../user.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-user-posts',
   imports: [PostComponent,MatIconModule,MatButtonModule],
@@ -16,15 +17,22 @@ export class UserPostsComponent implements OnInit {
   private postsService = inject(PostsService);
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
+  private route = inject(ActivatedRoute);
   user = this.userService.getCurrentUser();
   posts = this.postsService.userPosts;
+  email = this.route.snapshot.paramMap.get('email') || '';
   ngOnInit(): void {
-      const currentUser = this.user();
-      if (currentUser) {
-        this.postsService.getPostsByUser(currentUser);
+     this.userService.getUserByEmail(this.email).subscribe((user) => {
+      if (user) {
+        this.postsService.getPostsByUser(user);
       }
+    });
   }
   openNewPostDialog() {
     this.dialog.open(NewPostFormComponent);
+  }
+    isOwnProfile(): boolean {
+    const currentUser = this.userService.getCurrentUser()();
+    return currentUser ? this.email === currentUser.email : false;
   }
 }
