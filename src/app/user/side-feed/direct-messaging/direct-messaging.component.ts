@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SideFeedComponent } from '../../side-feed/side-feed.component';
 import { UserService } from '../../user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from '../../../services/message.service';
 import { interval } from 'rxjs';
 import { User, Message } from '../../../app.model';
@@ -24,6 +24,7 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
   messageService = inject(MessageService);
   httpUserService = inject(HttpUserService);
   route = inject(ActivatedRoute);
+  router = inject(Router);
   user: User | null = this.userService.getCurrentUser()();
   foundFriend: User | null = null;
   private shouldScroll = false;
@@ -34,7 +35,8 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
     this.route.params.subscribe(params => {
       const friendEmail = params['email'];
       if (!friendEmail) {
-        console.error('No email parameter provided');
+        this.messageService.showPopup('No email parameter provided');
+        this.router.navigate(['/messages']);
         return;
       }
       
@@ -44,23 +46,52 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
       this.httpUserService.getUserByEmail(friendEmail).subscribe({
         next: (user: User) => {
           if (!user) {
-            console.error('User not found');
+            this.messageService.showPopup('User not found');
+            this.router.navigate(['/messages']);
             return;
           }
-          this.foundFriend = user;
-          console.log('Found friend:', this.foundFriend);
           
-          if (this.foundFriend) {
-            this.loadMessageHistory();
-            
-            // Poll for new messages every 5 seconds
-            interval(5000).subscribe(() => {
-              this.loadMessageHistory();
-            });
+          // Check if the user is actually a friend
+          const currentUser = this.user;
+          if (!currentUser) {
+            this.messageService.showPopup('You must be logged in to view messages');
+            this.router.navigate(['/user/messages']);
+            return;
           }
+
+          // Get the current user's friends
+          this.httpUserService.getFriends(currentUser.email).subscribe({
+            next: (friends) => {
+              const isFriend = friends.some(friend => friend.email === user.email);
+              if (!isFriend) {
+                this.messageService.showPopup(`${user.name} is not your friend`);
+                this.router.navigate(['/user/messages']);
+                return;
+              }
+
+              this.foundFriend = user;
+              console.log('Found friend:', this.foundFriend);
+              
+              if (this.foundFriend) {
+                this.loadMessageHistory();
+                
+                // Poll for new messages every 7 seconds
+                interval(7000).subscribe(() => {
+                  this.loadMessageHistory();
+                });
+              }
+            },
+            error: (error) => {
+              console.error('Error checking friendship:', error);
+              this.messageService.showPopup('Error checking friendship status');
+              this.router.navigate(['/user/messages']);
+            }
+          });
         },
         error: (error: Error) => {
           console.error('Error fetching user:', error);
+          this.messageService.showPopup('Error fetching user information');
+          this.router.navigate(['/user/messages']);
         }
       });
     });
@@ -84,8 +115,8 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
 
   loadMessageHistory() {
     if (this.foundFriend && this.user) {
-      console.log('Loading message history between:', this.user!.email, 'and', this.foundFriend!.email);
-      this.messageService.getMessages(this.user!.email, this.foundFriend!.email)
+      console.log('Loading message history between:', this.user.email, 'and', this.foundFriend.email);
+      this.messageService.getMessages(this.user.email, this.foundFriend.email)
         .subscribe({
           next: (messages) => {
             console.log('Received messages:', messages);
@@ -110,15 +141,15 @@ export class DirectMessagingComponent implements OnInit, AfterViewChecked {
   }
   
   sendMessage() {
-    if (this.newMessage.trim() && this.foundFriend && this.user) {
+    if (this.newMessage.trim() && this.foundFriend && this.user) {  
       console.log('Sending message:', {
-        from: this.user?.email,
+        from: this.user.email,
         to: this.foundFriend.email,
         text: this.newMessage
       });
       
       this.messageService.sendMessage(
-        this.user!.email,
+        this.user.email,
         this.foundFriend.email,
         this.newMessage
       ).subscribe({

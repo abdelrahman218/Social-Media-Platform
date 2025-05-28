@@ -7,8 +7,8 @@
       <h1>Access Denied</h1>
       <p>Sorry, you don't have permission to access this page.</p>
       <div class="unauthorized-actions">
-        <a href="/auth/login" class="login-button">Go to Login</a>
-        <a href="/" class="home-button">Back to Home</a>
+        <a [routerLink]="['/auth/login']" class="login-button">Go to Login</a>
+        <a [routerLink]="['/']" class="home-button">Back to Home</a>
       </div>
     </div>
   </div>

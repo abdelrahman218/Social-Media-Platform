@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, tap, BehaviorSubject } from 'rxjs';
 import { Message, User } from '../app.model';
 import { BackendAdapter } from '../BackendAdapter/BackendAdapter';
 import { SpringBootBackendAdapter } from '../BackendAdapter/SpringBootBackendAdapter';
@@ -12,6 +12,10 @@ export class MessageService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080';
   private backendAdapter: BackendAdapter = inject(SpringBootBackendAdapter);
+  private messagesSubject = new BehaviorSubject<Message[]>([]);
+  private popupMessageSubject = new BehaviorSubject<{message: string, type: 'error' | 'success'} | null>(null);
+
+  popupMessage$ = this.popupMessageSubject.asObservable();
 
   getMessages(senderEmail: string, receiverEmail: string): Observable<Message[]> {
     console.log('Fetching messages between:', senderEmail, 'and', receiverEmail);
@@ -94,5 +98,13 @@ export class MessageService {
         };
       })
     );
+  }
+
+  showPopup(message: string, type: 'error' | 'success' = 'error') {
+    this.popupMessageSubject.next({ message, type });
+    // Auto hide after 3 seconds
+    setTimeout(() => {
+      this.popupMessageSubject.next(null);
+    }, 3000);
   }
 } 

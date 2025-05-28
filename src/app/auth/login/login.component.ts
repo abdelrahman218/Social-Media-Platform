@@ -9,10 +9,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {UserService} from '../../user/user.service';
+import { UserService } from '../../user/user.service';
 import { BackendAdapter } from '../../BackendAdapter/BackendAdapter';
 import { SpringBootBackendAdapter } from '../../BackendAdapter/SpringBootBackendAdapter';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-login',
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar,
     private fb: FormBuilder,
-    private userService:UserService,
+    private userService: UserService,
+    private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -60,17 +60,28 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response));
-          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+          this.messageService.showPopup('Login successful!', 'success');
           const user = this.backendAdapter.userAdapter([response]);
           this.userService.setCurrentUser(user[0]);
           this.router.navigate(['/feed']);
         },
         error: (error) => {
-          this.snackBar.open(error.message || 'Login failed. Please try again.', 'Close', { duration: 5000 });
+          let errorMessage = 'Login failed. Please try again.';
+          if (error.status === 401) {
+            errorMessage = 'Invalid email or password. Please try again.';
+          } else if (error.status === 0) {
+            errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+          }
+          this.messageService.showPopup(errorMessage, 'error');
         }
       });
     } else {
       this.loginForm.markAllAsTouched();
+      if (!this.email?.valid) {
+        this.messageService.showPopup('Please enter a valid email address', 'error');
+      } else if (!this.password?.valid) {
+        this.messageService.showPopup('Password must be at least 6 characters long', 'error');
+      }
     }
   }
 }

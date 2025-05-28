@@ -10,8 +10,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-signup',
@@ -42,7 +42,7 @@ export class SignupComponent {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private messageService: MessageService
   ) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -93,25 +93,22 @@ export class SignupComponent {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response));
           
-          this.snackBar.open('Account created successfully!', 'Close', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top'
-          });
-          
+          this.messageService.showPopup('Account created successfully!', 'success');
           this.router.navigate(['/auth/login']);
         },
         error: (error) => {
           this.isLoading = false;
-          this.snackBar.open(
-            error.error?.message || 'An error occurred during signup. Please try again.',
-            'Close',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top'
-            }
-          );
+          let errorMessage = 'An error occurred during signup. Please try again.';
+          
+          if (error.status === 409) {
+            errorMessage = 'An account with this email already exists.';
+          } else if (error.status === 0) {
+            errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+          } else if (error.error?.message) {
+            errorMessage = error.error.message;
+          }
+          
+          this.messageService.showPopup(errorMessage, 'error');
         },
         complete: () => {
           this.isLoading = false;
@@ -119,6 +116,23 @@ export class SignupComponent {
       });
     } else {
       this.signupForm.markAllAsTouched();
+      this.showFormValidationErrors();
+    }
+  }
+
+  private showFormValidationErrors() {
+    if (this.signupForm.hasError('passwordMismatch')) {
+      this.messageService.showPopup('Passwords do not match', 'error');
+    } else if (this.signupForm.get('email')?.hasError('email')) {
+      this.messageService.showPopup('Please enter a valid email address', 'error');
+    } else if (this.signupForm.get('full_name')?.hasError('minlength')) {
+      this.messageService.showPopup('Name must be at least 3 characters long', 'error');
+    } else if (this.signupForm.get('password')?.hasError('minlength')) {
+      this.messageService.showPopup('Password must be at least 8 characters long', 'error');
+    } else if (this.signupForm.get('dateOfBirth')?.hasError('tooYoung')) {
+      this.messageService.showPopup('You must be at least 13 years old to sign up', 'error');
+    } else if (this.signupForm.get('gender')?.hasError('required')) {
+      this.messageService.showPopup('Please select your gender', 'error');
     }
   }
 
