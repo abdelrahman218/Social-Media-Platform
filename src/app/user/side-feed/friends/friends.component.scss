@@ -86,3 +86,8 @@
 .message-btn:hover {
     transform: scale(1.05);
 }
+.noFriendsMessage {
+  display: block;
+  text-align: center;
+  color: var(--mat-primary);
+}

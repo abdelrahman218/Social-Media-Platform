@@ -40,7 +40,7 @@ export class PostComponent {
   );
   isCommentsOpen = signal<boolean>(false);
   get imgUrl() {
-    return this.post().postOwner.profilePicURL;
+    return 'http://localhost:8080/'+ this.post().postOwner.profilePicURL;
   }
 
   likePost() {

@@ -4,17 +4,14 @@
   <div class="sidebar left-sidebar">
     <!-- Profile Section -->
     <div [routerLink]="['/user/profile', user().email]" class="profile-section">
-      <img [src]="user().profilePicURL" alt="Profile Picture" class="profile-pic">
+      <img [src]="'http://localhost:8080/'+user().profilePicURL" alt="Profile Picture" class="profile-pic">
       <label class="leb">{{user().name}}</label>
     </div>
     <!-- Navigation Links -->
     <nav class="sidebar-nav">
       <ul>
+        <li routerLink="/feed"><a><i class="fas fa-home"></i> Feed</a></li>
         <li routerLink="/user/messages"><a><i class="fas fa-envelope"></i> Messages</a></li>
-        <li><a href="/notifications"><i class="fas fa-bell"></i> Notifications</a></li>
-        <li routerLink="/user/settings"><a><i class="fas fa-cog"></i> Settings</a></li>
-        <li routerLink="/user/friends"><a><i class="fas fa-users"></i>Friends</a></li>
-        <li><a href="/groups"><i class="fas fa-file-alt"></i> Liked Posts</a></li>
         <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
       </ul>
     </nav>
@@ -24,25 +21,16 @@
   <!-- Right Sidebar -->
   <div class="sidebar right-sidebar">
     <!-- Trending Topics -->
-    <div class="trending">
-      <h4>Trending Topics</h4>
-      <div class="trend-item">
-        <span class="topic">#TrendingTopic1</span>
-        <span class="count">1.2K posts</span>
-      </div>
-      <div class="trend-item">
-        <span class="topic">#TrendingTopic2</span>
-        <span class="count">856 posts</span>
-      </div>
-    </div>
+    <li routerLink="/user/settings"><a><i class="fas fa-cog"></i> Settings</a></li>
+    <li routerLink="/user/friends"><a><i class="fas fa-users"></i>Friends</a></li>
 
-    <!-- Suggestions (You can generate dynamically later) -->
+    <!-- About Website Suggestions -->
     <div class="suggestions">
       <h4>Suggestions</h4>
       <ul>
-        <li><a href="#">Follow User123</a></li>
-        <li><a href="#">Check out #Football</a></li>
-        <li><a href="#">Join Community XYZ</a></li>
+        <li>Explore friends posts on your feed.</li>
+        <li>Update your profile to let others know more about you.</li>
+        <li>Check your messages to stay connected.</li>
       </ul>
     </div>
   </div>

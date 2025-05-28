@@ -35,7 +35,7 @@
             <input type="file" id="profilePic" class="form-control" (change)="onProfilePicSelected($event)">
             @if (user.profilePicURL) {
             <div>
-                <img [src]="user.profilePicURL" alt="Profile Picture" class="profile-pic-preview" style="max-width: 100px; max-height: 100px; margin-top: 10px;">
+                <img [src]="'http://localhost:8080/'+user.profilePicURL" alt="Profile Picture" class="profile-pic-preview" style="max-width: 100px; max-height: 100px; margin-top: 10px;">
             </div>
         }
         </div>
