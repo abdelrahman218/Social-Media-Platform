@@ -29,11 +29,11 @@
         </button>
         @if(user().isPrivate){
         <button class="edit-profile" (click)="togglePrivateMode(user().email)">
-            <span class="material-icons" style="vertical-align: middle;">lock</span> make private
+            <span class="material-icons" style="vertical-align: middle;">lock_open</span> make public
         </button>
         }@if(!user().isPrivate){
         <button class="edit-profile" (click)="togglePrivateMode(user().email)">
-            <span class="material-icons" style="vertical-align: middle;">lock_open</span> make public
+            <span class="material-icons" style="vertical-align: middle;">lock</span> make private
         </button>
         }
         }
